@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جاري التحقق | مسار</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <link rel="stylesheet" href="../css/auth.css">
+    <style>
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+            font-family: inherit;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            margin: 0;
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 14px;
+            margin-top: 12px;
+            text-align: center;
+            max-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <h2 id="status-text">جاري تسجيل الدخول...</h2>
+        <p>يرجى الانتظار بينما نتحقق من حسابك.</p>
+        <p class="error-msg" id="error-msg" style="display:none"></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        async function handleCallback() {
+            // ── 1. Check for OAuth error in URL params (e.g. bad_oauth_state) ──
+            const urlParams = new URLSearchParams(window.location.search);
+            const errorCode = urlParams.get('error_code') || urlParams.get('error');
+            const errorDesc = urlParams.get('error_description');
+
+            if (errorCode) {
+                console.warn('OAuth error:', errorCode, errorDesc);
+                // Show error briefly then redirect to login
+                const statusEl = document.getElementById('status-text');
+                const errorEl = document.getElementById('error-msg');
+                if (statusEl) statusEl.textContent = 'حدث خطأ في تسجيل الدخول';
+                if (errorEl) {
+                    errorEl.textContent = errorCode === 'bad_oauth_state'
+                        ? 'انتهت صلاحية الجلسة. جاري إعادة التوجيه...'
+                        : (errorDesc || errorCode);
+                    errorEl.style.display = 'block';
+                }
+                setTimeout(() => {
+                    window.location.href = '/auth/login.html';
+                }, 2000);
+                return;
+            }
+
+            // ── 2. Initialize Supabase ──
+            if (!supabaseClient) await initSupabase();
+
+            if (!supabaseClient) {
+                window.location.href = '/auth/login.html';
+                return;
+            }
+
+            // ── 3. Try to get session (handles both implicit + PKCE exchange automatically) ──
+            try {
+                // First attempt
+                let { data: { session } } = await supabaseClient.auth.getSession();
+
+                if (session) {
+                    // Cache user info
+                    if (session.user && session.user.user_metadata) {
+                        localStorage.setItem('sp_user_meta', JSON.stringify(session.user.user_metadata));
+                        localStorage.setItem('sp_user_email', session.user.email);
+                    }
+                    
+                    // Explicitly update profile types if selected during signup
+                    const userTypeToSave = localStorage.getItem('sp_user_type');
+                    if (userTypeToSave) {
+                        try {
+                            const { data: currentProfile } = await supabaseClient
+                                .from('profiles')
+                                .select('role')
+                                .eq('id', session.user.id)
+                                .single();
+                                
+                            const currentRole = currentProfile?.role || 'user';
+                            
+                            if (currentRole !== 'admin') {
+                                const updatePayload = { user_type: userTypeToSave };
+                                if (userTypeToSave === 'post_study') {
+                                    updatePayload.role = 'post_study';
+                                } else {
+                                    updatePayload.role = 'user';
+                                }
+                                await supabaseClient
+                                    .from('profiles')
+                                    .update(updatePayload)
+                                    .eq('id', session.user.id);
+                            }
+                        } catch (e) {
+                            console.warn('Failed to explicitly write to profiles in callback:', e);
+                        }
+                    }
+
+                    localStorage.removeItem('sp_user_type'); // Clear selection after use
+                    await redirectByRole(supabaseClient, session.user.id);
+                    return;
+                }
+
+                // ── 4. Fallback: wait and retry (PKCE code exchange may need a moment) ──
+                setTimeout(async () => {
+                    try {
+                        const { data: { session: retrySession } } = await supabaseClient.auth.getSession();
+                        if (retrySession) {
+                            if (retrySession.user && retrySession.user.user_metadata) {
+                                localStorage.setItem('sp_user_meta', JSON.stringify(retrySession.user.user_metadata));
+                                localStorage.setItem('sp_user_email', retrySession.user.email);
+                            }
+
+                            // Explicitly update profile types if selected
+                            const userTypeToSave = localStorage.getItem('sp_user_type');
+                            if (userTypeToSave) {
+                                try {
+                                    const { data: currentProfile } = await supabaseClient
+                                        .from('profiles')
+                                        .select('role')
+                                        .eq('id', retrySession.user.id)
+                                        .single();
+                                        
+                                    const currentRole = currentProfile?.role || 'user';
+                                    
+                                    if (currentRole !== 'admin') {
+                                        const updatePayload = { user_type: userTypeToSave };
+                                        if (userTypeToSave === 'post_study') {
+                                            updatePayload.role = 'post_study';
+                                        } else {
+                                            updatePayload.role = 'user';
+                                        }
+                                        await supabaseClient
+                                            .from('profiles')
+                                            .update(updatePayload)
+                                            .eq('id', retrySession.user.id);
+                                    }
+                                } catch (e) {
+                                    console.warn('Failed to explicitly write to profiles in callback (retry):', e);
+                                }
+                            }
+
+                            localStorage.removeItem('sp_user_type'); // Clear selection after use
+                            await redirectByRole(supabaseClient, retrySession.user.id);
+                        } else {
+                            console.warn('Callback: no session after retry');
+                            window.location.href = '/auth/login.html';
+                        }
+                    } catch (e) {
+                        console.error('Callback retry error:', e);
+                        window.location.href = '/auth/login.html';
+                    }
+                }, 800);
+
+            } catch (e) {
+                console.error('Callback error:', e);
+                window.location.href = '/auth/login.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', handleCallback);
+    </script>
+</body>
+
+</html>

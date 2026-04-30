@@ -1,0 +1,1847 @@
+[
+  {
+    "id": "univ_sanaa",
+    "name": "جامعة صنعاء",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "92%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "طب الأسنان",
+            "admission_rate": "88%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "85%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "78%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الهندسة الكهربائية",
+            "admission_rate": "76%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الهندسة المعمارية",
+            "admission_rate": "80%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "72%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الرياضيات",
+            "admission_rate": "68%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "60%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_aden",
+    "name": "جامعة عدن",
+    "location": {
+      "city": "عدن",
+      "governorate": "عدن"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "90%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "83%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة والبترول",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "75%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "هندسة البترول والغاز",
+            "admission_rate": "77%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التجارة والاقتصاد",
+        "specializations": [
+          {
+            "name": "إدارة الأعمال والاقتصاد",
+            "admission_rate": "65%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "المحاسبة",
+            "admission_rate": "63%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية القانون",
+        "specializations": [
+          {
+            "name": "القانون والشريعة الإسلامية",
+            "admission_rate": "70%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_taiz",
+    "name": "جامعة تعز",
+    "location": {
+      "city": "تعز",
+      "governorate": "تعز"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "91%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "طب الأسنان",
+            "admission_rate": "87%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "84%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "76%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الهندسة الكهربائية",
+            "admission_rate": "74%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "هندسة الميكانيكا",
+            "admission_rate": "73%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "71%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "58%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_hadramout",
+    "name": "جامعة حضرموت",
+    "location": {
+      "city": "المكلا",
+      "governorate": "حضرموت"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "89%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "82%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة والبترول",
+        "specializations": [
+          {
+            "name": "هندسة النفط والغاز",
+            "admission_rate": "79%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "75%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الهندسة الكهربائية",
+            "admission_rate": "74%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "70%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التجارة والاقتصاد",
+        "specializations": [
+          {
+            "name": "إدارة الأعمال والاقتصاد",
+            "admission_rate": "64%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_ibb",
+    "name": "جامعة إب",
+    "location": {
+      "city": "إب",
+      "governorate": "إب"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "90%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "83%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "75%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الهندسة المعمارية",
+            "admission_rate": "78%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الزراعة",
+        "specializations": [
+          {
+            "name": "الزراعة والبيئة",
+            "admission_rate": "60%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية القانون",
+        "specializations": [
+          {
+            "name": "القانون والشريعة الإسلامية",
+            "admission_rate": "68%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_hodeidah",
+    "name": "جامعة الحديدة",
+    "location": {
+      "city": "الحديدة",
+      "governorate": "الحديدة"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم البحرية والسمكية",
+        "specializations": [
+          {
+            "name": "العلوم البحرية والسمكية",
+            "admission_rate": "62%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "58%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التجارة والاقتصاد",
+        "specializations": [
+          {
+            "name": "إدارة الأعمال والاقتصاد",
+            "admission_rate": "63%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الزراعة",
+        "specializations": [
+          {
+            "name": "الزراعة والبيئة",
+            "admission_rate": "59%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_dhamar",
+    "name": "جامعة ذمار",
+    "location": {
+      "city": "ذمار",
+      "governorate": "ذمار"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "88%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "81%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "74%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الزراعة والبيئة",
+        "specializations": [
+          {
+            "name": "الزراعة والبيئة",
+            "admission_rate": "57%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "اللغة العربية وآدابها",
+            "admission_rate": "55%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_hajjah",
+    "name": "جامعة حجة",
+    "location": {
+      "city": "حجة",
+      "governorate": "حجة"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "87%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "التمريض",
+            "admission_rate": "65%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "73%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "69%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "56%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_saadah",
+    "name": "جامعة صعدة",
+    "location": {
+      "city": "صعدة",
+      "governorate": "صعدة"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "86%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "72%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "اللغة العربية وآدابها",
+            "admission_rate": "54%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية القانون",
+        "specializations": [
+          {
+            "name": "القانون والشريعة الإسلامية",
+            "admission_rate": "67%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_amran",
+    "name": "جامعة عمران",
+    "location": {
+      "city": "عمران",
+      "governorate": "عمران"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "85%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "71%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "68%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الزراعة",
+        "specializations": [
+          {
+            "name": "الزراعة والبيئة",
+            "admission_rate": "55%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_albayda",
+    "name": "جامعة البيضاء",
+    "location": {
+      "city": "البيضاء",
+      "governorate": "البيضاء"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "85%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "71%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "اللغة العربية وآدابها",
+            "admission_rate": "53%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "54%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_lahj",
+    "name": "جامعة لحج",
+    "location": {
+      "city": "الحوطة",
+      "governorate": "لحج"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "84%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "70%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "53%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية القانون",
+        "specializations": [
+          {
+            "name": "القانون والشريعة الإسلامية",
+            "admission_rate": "66%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_abyan",
+    "name": "جامعة أبين",
+    "location": {
+      "city": "زنجبار",
+      "governorate": "أبين"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "83%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "69%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "67%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "52%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_aldhale",
+    "name": "جامعة الضالع",
+    "location": {
+      "city": "الضالع",
+      "governorate": "الضالع"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "83%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "69%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "52%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "اللغة العربية وآدابها",
+            "admission_rate": "51%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_aljawf",
+    "name": "جامعة الجوف",
+    "location": {
+      "city": "الحزم",
+      "governorate": "الجوف"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "82%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "68%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "66%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الزراعة",
+        "specializations": [
+          {
+            "name": "الزراعة والبيئة",
+            "admission_rate": "51%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_marib",
+    "name": "جامعة مأرب",
+    "location": {
+      "city": "مأرب",
+      "governorate": "مأرب"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "84%",
+            "annual_fee_usd": "50$"
+          },
+          {
+            "name": "التمريض",
+            "admission_rate": "63%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "70%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "اللغة العربية وآدابها",
+            "admission_rate": "52%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "53%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_alshihr",
+    "name": "جامعة الشحر",
+    "location": {
+      "city": "الشحر",
+      "governorate": "حضرموت"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "83%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "68%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم البحرية",
+        "specializations": [
+          {
+            "name": "العلوم البحرية والسمكية",
+            "admission_rate": "61%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "تربية ومناهج",
+            "admission_rate": "52%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_seiyun",
+    "name": "جامعة سيئون",
+    "location": {
+      "city": "سيئون",
+      "governorate": "حضرموت"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "84%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "69%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم",
+        "specializations": [
+          {
+            "name": "علوم الحاسوب وتقنية المعلومات",
+            "admission_rate": "67%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية القانون",
+        "specializations": [
+          {
+            "name": "القانون والشريعة الإسلامية",
+            "admission_rate": "65%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_raymah",
+    "name": "جامعة ريمة",
+    "location": {
+      "city": "الجبين",
+      "governorate": "ريمة"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "82%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_almahrah",
+    "name": "جامعة المهرة",
+    "location": {
+      "city": "الغيضة",
+      "governorate": "المهرة"
+    },
+    "type": "حكومية",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم التطبيقية والتقنية",
+        "specializations": [
+          {
+            "name": "نظم المعلومات",
+            "admission_rate": "70%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التربية",
+        "specializations": [
+          {
+            "name": "اللغة الإنجليزية",
+            "admission_rate": "60%",
+            "annual_fee_usd": "50$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ust_yemen",
+    "name": "جامعة العلوم والتكنولوجيا",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "85%",
+            "annual_fee_usd": "2500$"
+          },
+          {
+            "name": "طب الأسنان",
+            "admission_rate": "80%",
+            "annual_fee_usd": "2200$"
+          },
+          {
+            "name": "الصيدلة الإكلينيكية",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1800$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "هندسة الميكاترونكس",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1500$"
+          },
+          {
+            "name": "الهندسة المعمارية",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1400$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الحاسبات وتكنولوجيا المعلومات",
+        "specializations": [
+          {
+            "name": "الأمن السيبراني",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1300$"
+          },
+          {
+            "name": "ذكاء الأعمال",
+            "admission_rate": "65%",
+            "annual_fee_usd": "1200$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_al_nasser_specialized",
+    "name": "جامعة الناصر",
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية طب الأسنان",
+        "specializations": [
+          {
+            "name": "بكالوريوس طب وجراحة الفم والأسنان",
+            "admission_rate": "76%",
+            "years_of_study": 5,
+            "annual_fee_usd_after_discount": "2750$",
+            "annual_fee_yer_after_discount": "687,500 YER"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الطبية",
+        "specializations": [
+          {
+            "name": "بكالوريوس صيدلة",
+            "admission_rate": "76%",
+            "years_of_study": 5,
+            "annual_fee_usd_after_discount": "1575$",
+            "annual_fee_yer_after_discount": "393,750 YER"
+          },
+          {
+            "name": "بكالوريوس مختبرات",
+            "admission_rate": "69%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1400$",
+            "annual_fee_yer_after_discount": "350,000 YER"
+          },
+          {
+            "name": "بكالوريوس تمريض",
+            "admission_rate": "69%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1050$",
+            "annual_fee_yer_after_discount": "262,500 YER"
+          },
+          {
+            "name": "بكالوريوس صحة مجتمع",
+            "admission_rate": "69%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "770$",
+            "annual_fee_yer_after_discount": "192,500 YER"
+          },
+          {
+            "name": "بكالوريوس تغذية علاجية",
+            "admission_rate": "69%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1100$",
+            "annual_fee_yer_after_discount": "275,000 YER"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة وعلوم الحاسوب",
+        "specializations": [
+          {
+            "name": "بكالوريوس تقنية معلومات (إدارة نظم وشبكات)",
+            "admission_rate": "68%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1309$",
+            "annual_fee_yer_after_discount": "327,250 YER"
+          },
+          {
+            "name": "بكالوريوس تقنية معلومات (تكنولوجيا الويب والموبايل)",
+            "admission_rate": "68%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1309$",
+            "annual_fee_yer_after_discount": "327,250 YER"
+          },
+          {
+            "name": "بكالوريوس الأمن السيبراني والتحري الرقمي",
+            "admission_rate": "68%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1200$",
+            "annual_fee_yer_after_discount": "300,000 YER"
+          },
+          {
+            "name": "بكالوريوس الذكاء الاصطناعي",
+            "admission_rate": "68%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "925$",
+            "annual_fee_yer_after_discount": "231,250 YER"
+          },
+          {
+            "name": "بكالوريوس علوم البيانات",
+            "admission_rate": "68%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "925$",
+            "annual_fee_yer_after_discount": "231,250 YER"
+          },
+          {
+            "name": "بكالوريوس هندسة مدنية",
+            "admission_rate": "71%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1190$",
+            "annual_fee_yer_after_discount": "297,500 YER"
+          },
+          {
+            "name": "بكالوريوس هندسة معمارية",
+            "admission_rate": "71%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "1190$",
+            "annual_fee_yer_after_discount": "297,500 YER"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإدارية والمالية",
+        "specializations": [
+          {
+            "name": "بكالوريوس نظم معلومات إدارية",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "630$",
+            "annual_fee_yer_after_discount": "157,500 YER"
+          },
+          {
+            "name": "بكالوريوس إدارة مستشفيات",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "490$",
+            "annual_fee_yer_after_discount": "122,500 YER"
+          },
+          {
+            "name": "بكالوريوس محاسبة",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "560$",
+            "annual_fee_yer_after_discount": "140,000 YER"
+          },
+          {
+            "name": "بكالوريوس تسويق",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "490$",
+            "annual_fee_yer_after_discount": "122,500 YER"
+          },
+          {
+            "name": "بكالوريوس إدارة أعمال",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "490$",
+            "annual_fee_yer_after_discount": "122,500 YER"
+          },
+          {
+            "name": "بكالوريوس علوم مالية ومصرفية",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "560$",
+            "annual_fee_yer_after_discount": "140,000 YER"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "بكالوريوس لغة عربية",
+            "admission_rate": "53%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "420$",
+            "annual_fee_yer_after_discount": "105,000 YER"
+          },
+          {
+            "name": "بكالوريوس لغة إنجليزية - ترجمة",
+            "admission_rate": "55%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "420$",
+            "annual_fee_yer_after_discount": "105,000 YER"
+          },
+          {
+            "name": "بكالوريوس شريعة وقانون",
+            "admission_rate": "58%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "420$",
+            "annual_fee_yer_after_discount": "105,000 YER"
+          },
+          {
+            "name": "بكالوريوس دراسات إسلامية",
+            "admission_rate": "53%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "420$",
+            "annual_fee_yer_after_discount": "105,000 YER"
+          },
+          {
+            "name": "بكالوريوس علاقات عامة وإعلان",
+            "admission_rate": "55%",
+            "years_of_study": 4,
+            "annual_fee_usd_after_discount": "420$",
+            "annual_fee_yer_after_discount": "105,000 YER"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_al_saeed_taiz",
+    "name": "جامعة السعيد",
+    "location": {
+      "city": "تعز",
+      "governorate": "تعز"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم الطبية والتمريض",
+        "specializations": [
+          {
+            "name": "المختبرات الطبية",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1200$"
+          },
+          {
+            "name": "التمريض",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1000$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة وتقنية المعلومات",
+        "specializations": [
+          {
+            "name": "هندسة الاتصالات والشبكات",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1400$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_queen_arwa",
+    "name": "جامعة الملكة أروى",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الهندسة والعلوم الحديثة",
+        "specializations": [
+          {
+            "name": "الهندسة المعمارية",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1500$"
+          },
+          {
+            "name": "هندسة التصميم الداخلي",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1300$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الطبية",
+        "specializations": [
+          {
+            "name": "الصيدلة",
+            "admission_rate": "80%",
+            "annual_fee_usd": "1600$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_dar_alsalam",
+    "name": "جامعة دار السلام الدولية للعلوم والتكنولوجيا",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية القانون والعلوم السياسية",
+        "specializations": [
+          {
+            "name": "القانون الدولي",
+            "admission_rate": "65%",
+            "annual_fee_usd": "800$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية طب الأسنان",
+        "specializations": [
+          {
+            "name": "طب وجراحة الفم والأسنان",
+            "admission_rate": "80%",
+            "annual_fee_usd": "2200$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_emirates_int",
+    "name": "الجامعة الإماراتية الدولية",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "85%",
+            "annual_fee_usd": "2600$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة وتكنولوجيا المعلومات",
+        "specializations": [
+          {
+            "name": "هندسة النفط والغاز",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1600$"
+          },
+          {
+            "name": "هندسة الميكاترونكس",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1500$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_science_technology_sanaa",
+    "name": "جامعة العلوم والتكنولوجيا (المركز الرئيسي)",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الطب والعلوم الصحية",
+        "specializations": [
+          {
+            "name": "الطب البشري",
+            "admission_rate": "85%",
+            "annual_fee_usd": "3000$"
+          },
+          {
+            "name": "الصيدلة الإكلينيكية",
+            "admission_rate": "78%",
+            "annual_fee_usd": "1800$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الحاسبات وتكنولوجيا المعلومات",
+        "specializations": [
+          {
+            "name": "الأمن السيبراني",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1400$"
+          },
+          {
+            "name": "الذكاء الاصطناعي",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1400$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_al_saeeda",
+    "name": "جامعة السعيدة",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم الطبية",
+        "specializations": [
+          {
+            "name": "القبالة والتوليد",
+            "admission_rate": "65%",
+            "annual_fee_usd": "900$"
+          },
+          {
+            "name": "المختبرات",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1100$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_yemen_jordan",
+    "name": "جامعة اليمن والاردن",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم الإدارية",
+        "specializations": [
+          {
+            "name": "العلوم المالية والمصرفية",
+            "admission_rate": "60%",
+            "annual_fee_usd": "800$"
+          },
+          {
+            "name": "التسويق الرقمي",
+            "admission_rate": "55%",
+            "annual_fee_usd": "750$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_al_hikma",
+    "name": "جامعة الحكمة",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم الطبية",
+        "specializations": [
+          {
+            "name": "الصيدلة",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1400$"
+          },
+          {
+            "name": "صحة المجتمع",
+            "admission_rate": "65%",
+            "annual_fee_usd": "950$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الهندسة",
+        "specializations": [
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1200$"
+          },
+          {
+            "name": "هندسة الاتصالات",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1200$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_modern_sciences",
+    "name": "جامعة العلوم الحديثة",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الفنون والاعلام",
+        "specializations": [
+          {
+            "name": "الاذاعة والتلفزيون",
+            "admission_rate": "55%",
+            "annual_fee_usd": "900$"
+          },
+          {
+            "name": "التصميم الجرافيكي",
+            "admission_rate": "60%",
+            "annual_fee_usd": "1000$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_iqra",
+    "name": "جامعة اقرأ للعلوم والتكنولوجيا",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الهندسة وعلوم الحاسوب",
+        "specializations": [
+          {
+            "name": "هندسة البرمجيات",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1200$"
+          },
+          {
+            "name": "تقنية المعلومات",
+            "admission_rate": "65%",
+            "annual_fee_usd": "1100$"
+          },
+          {
+            "name": "الهندسة المدنية",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1300$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإدارية والإنسانية",
+        "specializations": [
+          {
+            "name": "إدارة الأعمال",
+            "admission_rate": "55%",
+            "annual_fee_usd": "700$"
+          },
+          {
+            "name": "المحاسبة",
+            "admission_rate": "55%",
+            "annual_fee_usd": "750$"
+          },
+          {
+            "name": "اللغة الإنجليزية",
+            "admission_rate": "55%",
+            "annual_fee_usd": "700$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_andalus",
+    "name": "جامعة الأندلس للعلوم التقنية",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الآداب والعلوم الإنسانية",
+        "specializations": [
+          {
+            "name": "الدراسات الإسلامية",
+            "admission_rate": "50%",
+            "annual_fee_usd": "600$"
+          },
+          {
+            "name": "اللغة العربية",
+            "admission_rate": "50%",
+            "annual_fee_usd": "600$"
+          },
+          {
+            "name": "العلوم السياسية",
+            "admission_rate": "60%",
+            "annual_fee_usd": "800$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية العلوم الإدارية",
+        "specializations": [
+          {
+            "name": "الإدارة العامة",
+            "admission_rate": "55%",
+            "annual_fee_usd": "700$"
+          },
+          {
+            "name": "نظم معلومات إدارية",
+            "admission_rate": "58%",
+            "annual_fee_usd": "850$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_yemen",
+    "name": "جامعة اليمن",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم الطبية",
+        "specializations": [
+          {
+            "name": "طب الأسنان",
+            "admission_rate": "78%",
+            "annual_fee_usd": "2100$"
+          },
+          {
+            "name": "الصيدلة",
+            "admission_rate": "72%",
+            "annual_fee_usd": "1300$"
+          },
+          {
+            "name": "المختبرات",
+            "admission_rate": "65%",
+            "annual_fee_usd": "1000$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية الحقوق والدبلوماسية",
+        "specializations": [
+          {
+            "name": "القانون",
+            "admission_rate": "60%",
+            "annual_fee_usd": "800$"
+          },
+          {
+            "name": "العلاقات الدولية",
+            "admission_rate": "60%",
+            "annual_fee_usd": "900$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_future",
+    "name": "جامعة المستقبل",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية الهندسة والتكنولوجيا",
+        "specializations": [
+          {
+            "name": "هندسة الاتصالات",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1300$"
+          },
+          {
+            "name": "هندسة الحاسوب",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1200$"
+          },
+          {
+            "name": "العمارة",
+            "admission_rate": "70%",
+            "annual_fee_usd": "1400$"
+          }
+        ]
+      },
+      {
+        "college_name": "كلية التجارة والاقتصاد",
+        "specializations": [
+          {
+            "name": "العلوم المالية والمصرفية",
+            "admission_rate": "55%",
+            "annual_fee_usd": "800$"
+          },
+          {
+            "name": "إدارة التسويق",
+            "admission_rate": "55%",
+            "annual_fee_usd": "750$"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "univ_peninsula",
+    "name": "جامعة الجزيرة (فرع صنعاء)",
+    "location": {
+      "city": "صنعاء",
+      "governorate": "أمانة العاصمة"
+    },
+    "type": "خاصة",
+    "colleges": [
+      {
+        "college_name": "كلية العلوم الطبية",
+        "specializations": [
+          {
+            "name": "الصيدلة",
+            "admission_rate": "75%",
+            "annual_fee_usd": "1400$"
+          },
+          {
+            "name": "التغذية العلاجية",
+            "admission_rate": "65%",
+            "annual_fee_usd": "1100$"
+          }
+        ]
+      }
+    ]
+  }
+]

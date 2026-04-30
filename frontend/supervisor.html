@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>لوحة تحليلات المشرف | مسار</title>
+    <meta name="description" content="لوحة تحليلات المشرف — رؤى أكاديمية متقدمة لمسارك الذكي">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/supervisor.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+    <div class="app-bg"></div>
+
+    <!-- ===== FULL-PAGE LOADER ===== -->
+    <div class="admin-page-loader" id="sv-page-loader">
+        <div class="loader-logo brand-logo-premium"><img src="img/logo.png" alt="Logo"></div>
+        <p class="loader-text">جاري تحميل لوحة التحليلات...</p>
+        <div class="loader-skeleton-area">
+            <div class="skeleton" style="height:14px;width:60%;border-radius:8px;margin:0 auto"></div>
+            <div class="skeleton" style="height:12px;width:40%;border-radius:8px;margin:0 auto"></div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN LAYOUT ===== -->
+    <div class="admin-layout">
+
+        <!-- Sidebar Overlay (mobile) -->
+        <div class="admin-sidebar-overlay" id="sv-sidebar-overlay" onclick="closeSvSidebar()"></div>
+
+        <!-- ══════════ SIDEBAR ══════════ -->
+        <aside class="admin-sidebar" id="sv-sidebar">
+            <div class="admin-sidebar-header">
+                <div class="admin-sidebar-logo brand-logo-premium"><img src="img/logo.png" alt="Logo"></div>
+                <div>
+                    <div class="admin-sidebar-title">مسار</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <button class="admin-nav-item active" id="nav-sv-overview" onclick="svScrollTo('sv-kpi')">
+                    <i class="fas fa-gauge-high"></i><span>نظرة عامة</span>
+                </button>
+                <button class="admin-nav-item" id="nav-sv-sentiment" onclick="svScrollTo('sv-sentiment')">
+                    <i class="fas fa-heart-pulse"></i><span>خريطة المشاعر</span>
+                </button>
+                <button class="admin-nav-item" id="nav-sv-intervention" onclick="svScrollTo('sv-intervention')">
+                    <i class="fas fa-triangle-exclamation"></i><span>رادار التدخل</span>
+                </button>
+                <button class="admin-nav-item" id="nav-sv-majors" onclick="svScrollTo('sv-majors')">
+                    <i class="fas fa-chart-bar"></i><span>توجهات التخصصات</span>
+                </button>
+                <button class="admin-nav-item" id="nav-sv-skills" onclick="svScrollTo('sv-skills')">
+                    <i class="fas fa-tags"></i><span>الفجوات المهارية</span>
+                </button>
+                <button class="admin-nav-item" id="nav-sv-progress" onclick="svScrollTo('sv-progress')">
+                    <i class="fas fa-chart-line"></i><span>مسار التطور</span>
+                </button>
+                <button class="admin-nav-item" id="nav-sv-admin" onclick="window.location.href='admin.html'">
+                    <i class="fas fa-arrow-right-from-bracket"></i><span>لوحة الإدارة</span>
+                </button>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <div class="admin-sidebar-menu-wrapper">
+                    <button class="admin-sidebar-menu-btn" onclick="toggleSvUserMenu(event)">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="admin-sidebar-dropdown" id="sv-user-dropdown">
+                        <div class="admin-sidebar-user-info">
+                            <img id="sv-sidebar-avatar"
+                                src="https://ui-avatars.com/api/?name=Admin&background=7c6fe0&color=fff&size=72" alt="">
+                            <div class="user-details">
+                                <div id="sv-sidebar-name" class="user-name">—</div>
+                                <div id="sv-sidebar-email" class="user-email">—</div>
+                            </div>
+                        </div>
+                        <div class="admin-sidebar-menu-divider"></div>
+                        <button class="admin-menu-item" onclick="window.location.href='admin.html'">
+                            <i class="fas fa-gauge-high"></i><span>لوحة الإدارة</span>
+                        </button>
+                        <button class="admin-menu-item danger" style="color:var(--danger)" onclick="handleAdminLogout()">
+                            <i class="fas fa-sign-out-alt"></i><span>تسجيل الخروج</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ══════════ MAIN AREA ══════════ -->
+        <div class="admin-main">
+
+            <!-- Top Bar -->
+            <div class="admin-topbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <button class="btn-admin-hamburger" onclick="toggleSvSidebar()" aria-label="Toggle sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="admin-topbar-left">
+                        <div class="admin-page-title">
+                            <i class="fas fa-brain"></i>
+                            لوحة تحليلات المشرف
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-topbar-right">
+                    <span id="sv-school-name-badge" class="sv-school-badge">
+                        <i class="fas fa-school"></i>
+                        <span id="sv-school-name-text">—</span>
+                    </span>
+                    <div class="user-dropdown-wrapper">
+                        <button class="user-avatar-btn" id="sv-avatar-btn" aria-label="User menu">
+                            <img id="sv-user-avatar"
+                                src="https://ui-avatars.com/api/?name=Admin&background=7c6fe0&color=fff&size=72"
+                                alt="Avatar">
+                        </button>
+                        <div class="user-dropdown" id="sv-user-dropdown-top">
+                            <div class="user-dropdown-name">
+                                <div id="sv-user-name">...</div>
+                                <div class="user-dropdown-email" id="sv-user-email">...</div>
+                            </div>
+                            <button class="user-dropdown-item" onclick="window.location.href='admin.html'">
+                                <i class="fas fa-gauge-high"></i><span>لوحة الإدارة</span>
+                            </button>
+                            <button class="user-dropdown-item danger" onclick="handleAdminLogout()">
+                                <i class="fas fa-sign-out-alt"></i><span>تسجيل الخروج</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <main class="admin-content" id="sv-content">
+
+                <!-- Error Banner -->
+                <div class="admin-error-banner" id="sv-error" style="display:none">
+                    <i class="fas fa-triangle-exclamation"></i><span></span>
+                </div>
+
+                <!-- ══ SECTION 1: KPI CARDS ══ -->
+                <section id="sv-kpi" class="sv-section">
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title"><i class="fas fa-award sv-section-icon"></i> بطاقات الإنجاز</h2>
+                    </div>
+                    <div class="sv-kpi-grid" id="sv-kpi-grid">
+                        <!-- KPI Card 1 -->
+                        <div class="sv-kpi-card sv-kpi-green" id="kpi-completed" onclick="openStudentModal('completed')"
+                            role="button" tabindex="0" aria-label="طلاب أتموا التوصية">
+                            <div class="sv-kpi-glow"></div>
+                            <div class="sv-kpi-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="sv-kpi-body">
+                                <div class="sv-kpi-value" id="kpi-completed-val">0</div>
+                                <div class="sv-kpi-label">طلاب أتموا التوصية</div>
+                                <div class="sv-kpi-sub">انقر لعرض القائمة</div>
+                            </div>
+                            <div class="sv-kpi-arrow"><i class="fas fa-chevron-left"></i></div>
+                        </div>
+
+                        <!-- KPI Card 2 -->
+                        <div class="sv-kpi-card sv-kpi-orange" id="kpi-pending" onclick="openStudentModal('pending')"
+                            role="button" tabindex="0" aria-label="طلاب بلا توصية">
+                            <div class="sv-kpi-glow"></div>
+                            <div class="sv-kpi-icon"><i class="fas fa-clock"></i></div>
+                            <div class="sv-kpi-body">
+                                <div class="sv-kpi-value" id="kpi-pending-val">0</div>
+                                <div class="sv-kpi-label">طلاب بلا توصية</div>
+                                <div class="sv-kpi-sub">انقر لإرسال تذكير</div>
+                            </div>
+                            <div class="sv-kpi-arrow"><i class="fas fa-chevron-left"></i></div>
+                        </div>
+
+                        <!-- KPI Card 3 — Total -->
+                        <div class="sv-kpi-card sv-kpi-purple">
+                            <div class="sv-kpi-glow"></div>
+                            <div class="sv-kpi-icon"><i class="fas fa-users"></i></div>
+                            <div class="sv-kpi-body">
+                                <div class="sv-kpi-value" id="kpi-total-val">0</div>
+                                <div class="sv-kpi-label">إجمالي الطلاب</div>
+                                <div class="sv-kpi-sub">في مدرستك</div>
+                            </div>
+                        </div>
+
+                        <!-- KPI Card 4 — Completion Rate -->
+                        <div class="sv-kpi-card sv-kpi-cyan">
+                            <div class="sv-kpi-glow"></div>
+                            <div class="sv-kpi-icon"><i class="fas fa-percent"></i></div>
+                            <div class="sv-kpi-body">
+                                <div class="sv-kpi-value" id="kpi-rate-val">0%</div>
+                                <div class="sv-kpi-label">نسبة الإنجاز</div>
+                                <div class="sv-kpi-sub">التوصيات المكتملة</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ══ SECTION 2: SENTIMENT DONUT CHART ══ -->
+                <section id="sv-sentiment" class="sv-section">
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title"><i class="fas fa-heart-pulse sv-section-icon"></i> خريطة المشاعر
+                            الأكاديمية</h2>
+                    </div>
+                    <div class="sv-chart-card sv-two-col">
+                        <div class="sv-chart-panel">
+                            <div class="sv-chart-wrap-donut">
+                                <canvas id="sentimentChart" aria-label="رسم بياني دائري للمشاعر الأكاديمية"></canvas>
+                                <div class="sv-donut-center">
+                                    <div class="sv-donut-total" id="sv-donut-total">0</div>
+                                    <div class="sv-donut-label">طالب</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sv-legend-panel">
+                            <div class="sv-legend-title">الحالات النفسية — انقر للتفاصيل</div>
+                            <div class="sv-legend-list" id="sv-sentiment-legend"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ══ SECTION 3: INTERVENTION TABLE ══ -->
+                <section id="sv-intervention" class="sv-section">
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title"><i class="fas fa-triangle-exclamation sv-section-icon"></i>
+                            رادار التدخل السريع</h2>
+                        <span class="admin-section-count" id="sv-intervention-count">—</span>
+                    </div>
+                    <div class="sv-priority-legend">
+                        <span class="sv-priority-pill sv-red"><i class="fas fa-circle"></i> أولوية عالية</span>
+                        <span class="sv-priority-pill sv-yellow"><i class="fas fa-circle"></i> أولوية متوسطة</span>
+                        <span class="sv-priority-pill sv-green"><i class="fas fa-circle"></i> أولوية منخفضة</span>
+                    </div>
+                    <div class="admin-table-wrapper">
+                        <div class="admin-table-scroll" style="max-height:340px">
+                            <table class="admin-table sv-intervention-table" aria-label="جدول رادار التدخل السريع">
+                                <thead>
+                                    <tr>
+                                        <th>الأولوية</th>
+                                        <th>الطالب</th>
+                                        <th>المرحلة الدراسية</th>
+                                        <th>الحالة النفسية</th>
+                                        <th>التوصية</th>
+                                        <th>الإجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="sv-intervention-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ══ SECTION 4: MAJORS BAR CHART ══ -->
+                <section id="sv-majors" class="sv-section">
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title"><i class="fas fa-chart-bar sv-section-icon"></i> توجهات التخصصات
+                            الأكثر اقتراحاً</h2>
+                    </div>
+                    <div class="sv-chart-card">
+                        <div class="sv-chart-wrap-bar">
+                            <canvas id="majorsChart" aria-label="رسم بياني شريطي للتخصصات"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ══ SECTION 5: SKILL GAP TAGS ══ -->
+                <section id="sv-skills" class="sv-section">
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title"><i class="fas fa-tags sv-section-icon"></i> مصفوفة الفجوات
+                            المهارية</h2>
+                        <span class="admin-section-count" id="sv-skills-count">—</span>
+                    </div>
+                    <div class="sv-chart-card sv-skills-card">
+                        <div class="sv-skills-header">أكثر المهارات المطلوبة — الكبر يعني الأعلى تكراراً</div>
+                        <div class="sv-tags-cloud" id="sv-tags-cloud"></div>
+                    </div>
+                </section>
+
+                <!-- ══ SECTION 6: PROGRESS LINE CHART ══ -->
+                <section id="sv-progress" class="sv-section">
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title"><i class="fas fa-chart-line sv-section-icon"></i> مسار التطور
+                            عبر الأشهر</h2>
+                    </div>
+                    <div class="sv-chart-card">
+                        <div class="sv-chart-wrap-line">
+                            <canvas id="progressChart" aria-label="رسم بياني خطي لمسار التطور"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+        <!-- /.admin-main -->
+    </div>
+    <!-- /.admin-layout -->
+
+    <!-- ══════════════════════════════════════════
+         UNIVERSAL REUSABLE MODAL
+    ══════════════════════════════════════════ -->
+    <div class="sv-modal-overlay" id="sv-modal" onclick="closeSvModal()" role="dialog" aria-modal="true"
+        aria-label="قائمة الطلاب">
+        <div class="sv-modal" onclick="event.stopPropagation()">
+            <div class="sv-modal-header">
+                <div class="sv-modal-title-wrap">
+                    <div class="sv-modal-icon" id="sv-modal-icon"><i class="fas fa-users"></i></div>
+                    <div>
+                        <h3 class="sv-modal-title" id="sv-modal-title">قائمة الطلاب</h3>
+                        <p class="sv-modal-subtitle" id="sv-modal-subtitle">—</p>
+                    </div>
+                </div>
+                <button class="sv-modal-close" onclick="closeSvModal()" aria-label="إغلاق">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+            <div class="sv-modal-search-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="sv-modal-search" placeholder="بحث باسم الطالب..."
+                    oninput="filterModalStudents(this.value)" aria-label="بحث">
+            </div>
+            <div class="sv-modal-body" id="sv-modal-body">
+                <!-- Injected by JS -->
+            </div>
+            <div class="sv-modal-footer" id="sv-modal-footer" style="display:none">
+                <button class="sv-btn-remind-all" id="sv-btn-remind-all" onclick="sendBulkReminder()">
+                    <i class="fas fa-bell"></i> إرسال تذكير جماعي للكل
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="sv-toast" id="sv-toast"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/db.js?v=sv-1"></script>
+    <script src="js/auth.js?v=sv-1"></script>
+    <script src="js/dm.js?v=sv-1"></script>
+    <script src="js/supervisor.js?v=sv-1"></script>
+
+    <script>
+        // ── Sidebar helpers ──────────────────────────────────────────
+        function toggleSvSidebar() {
+            document.getElementById('sv-sidebar').classList.toggle('open');
+            document.getElementById('sv-sidebar-overlay').classList.toggle('open');
+        }
+        function closeSvSidebar() {
+            document.getElementById('sv-sidebar').classList.remove('open');
+            document.getElementById('sv-sidebar-overlay').classList.remove('open');
+        }
+        function toggleSvUserMenu(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('sv-user-dropdown').classList.toggle('open');
+        }
+        document.addEventListener('click', () => {
+            document.getElementById('sv-user-dropdown')?.classList.remove('open');
+            document.getElementById('sv-user-dropdown-top')?.classList.remove('open');
+        });
+
+        // ── Logout (replicates admin logout without depending on admin.js) ──
+        async function handleAdminLogout() {
+            document.getElementById('sv-user-dropdown')?.classList.remove('open');
+            document.getElementById('sv-user-dropdown-top')?.classList.remove('open');
+            try {
+                if (typeof logout === 'function') {
+                    await logout();
+                } else {
+                    if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+                        await supabaseClient.auth.signOut();
+                    }
+                    ['sp_user_meta', 'sp_user_email', 'sp_user_role'].forEach(k => localStorage.removeItem(k));
+                    window.location.href = '/auth/login.html';
+                }
+            } catch (e) {
+                window.location.href = '/auth/login.html';
+            }
+        }
+
+        // ── Scroll spy for sidebar nav ───────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = ['sv-kpi', 'sv-sentiment', 'sv-intervention', 'sv-majors', 'sv-skills', 'sv-progress'];
+            const navIds = ['nav-sv-overview', 'nav-sv-sentiment', 'nav-sv-intervention', 'nav-sv-majors', 'nav-sv-skills', 'nav-sv-progress'];
+            const content = document.getElementById('sv-content');
+            if (!content) return;
+            content.addEventListener('scroll', () => {
+                let currentIdx = 0;
+                sections.forEach((id, i) => {
+                    const el = document.getElementById(id);
+                    if (el && el.offsetTop - content.scrollTop <= 140) currentIdx = i;
+                });
+                document.querySelectorAll('.admin-nav-item').forEach(b => b.classList.remove('active'));
+                const navEl = document.getElementById(navIds[currentIdx]);
+                if (navEl) navEl.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

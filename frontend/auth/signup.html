@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب | مسار</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="glass-card">
+            <!-- Header -->
+            <div class="auth-header">
+                <div class="logo brand-logo-premium">
+                    <img src="../img/logo.png" alt="Masar Logo">
+                </div>
+                <h1 id="t-title">إنشاء حساب جديد</h1>
+                <p id="t-subtitle">ابدأ رحلتك المهنية مع مسار</p>
+            </div>
+
+            <!-- Alert -->
+            <div class="form-alert" id="form-alert"></div>
+
+            <!-- Form -->
+            <form id="signup-form" onsubmit="handleEmailSignup(event)">
+                <div class="form-group">
+                    <label id="t-name-label">الاسم الكامل</label>
+                    <input type="text" id="name" placeholder="أحمد محمد" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label id="t-email-label">البريد الإلكتروني</label>
+                    <input type="email" id="email" placeholder="example@domain.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label id="t-pass-label">كلمة المرور</label>
+                    <div style="position:relative">
+                        <input type="password" id="password" minlength="6" required autocomplete="new-password"
+                            oninput="checkPasswordStrength(this.value)" style="padding-inline-end:42px">
+                        <button type="button" onclick="togglePassword('password','eye-pass')" tabindex="-1"
+                            style="position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(240,240,248,.5);font-size:15px;padding:0;">
+                            <i class="fas fa-eye" id="eye-pass"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strength-bar"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label id="t-confirm-label">تأكيد كلمة المرور</label>
+                    <div style="position:relative">
+                        <input type="password" id="confirm_password" minlength="6" required autocomplete="new-password" style="padding-inline-end:42px">
+                        <button type="button" onclick="togglePassword('confirm_password','eye-confirm')" tabindex="-1"
+                            style="position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(240,240,248,.5);font-size:15px;padding:0;">
+                            <i class="fas fa-eye" id="eye-confirm"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-social btn-primary" id="signup-btn">
+                    <span id="t-signup-btn">إنشاء الحساب</span>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <span id="t-has-account">لديك حساب بالفعل؟</span>
+                <a href="login.html" id="t-login-link">تسجيل الدخول</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/dm_modals.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        const translations = {
+            ar: {
+                title: "إنشاء حساب جديد", subtitle: "ابدأ رحلتك المهنية مع مسار",
+                nameLabel: "الاسم الكامل", emailLabel: "البريد الإلكتروني",
+                passLabel: "كلمة المرور", confirmLabel: "تأكيد كلمة المرور",
+                signupBtn: "إنشاء الحساب", hasAccount: "لديك حساب بالفعل؟",
+                loginLink: "تسجيل الدخول", langLabel: "English", dir: "rtl", lang: "ar",
+                successMsg: "تم إنشاء الحساب! تحقق من بريدك الإلكتروني.",
+                passMatch: "كلمتا المرور غير متطابقتين",
+                passShort: "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
+            },
+            en: {
+                title: "Create New Account", subtitle: "Start your career journey with Masar",
+                nameLabel: "Full Name", emailLabel: "Email Address",
+                passLabel: "Password", confirmLabel: "Confirm Password",
+                signupBtn: "Create Account", hasAccount: "Already have an account?",
+                loginLink: "Sign In", langLabel: "العربية", dir: "ltr", lang: "en",
+                successMsg: "Account created! Check your email.",
+                passMatch: "Passwords do not match",
+                passShort: "Password must be at least 6 characters"
+            }
+        };
+
+        let currentLang = localStorage.getItem('sp_lang') || 'ar';
+
+        function applyLang() {
+            const t = translations[currentLang];
+            document.documentElement.setAttribute('dir', t.dir);
+            document.documentElement.setAttribute('lang', t.lang);
+            document.getElementById('t-title').textContent = t.title;
+            document.getElementById('t-subtitle').textContent = t.subtitle;
+            document.getElementById('t-name-label').textContent = t.nameLabel;
+            document.getElementById('t-email-label').textContent = t.emailLabel;
+            document.getElementById('t-pass-label').textContent = t.passLabel;
+            document.getElementById('t-confirm-label').textContent = t.confirmLabel;
+            document.getElementById('t-signup-btn').textContent = t.signupBtn;
+            document.getElementById('t-has-account').textContent = t.hasAccount;
+            document.getElementById('t-login-link').textContent = t.loginLink;
+            const langLabel = document.getElementById('lang-label');
+            if (langLabel) langLabel.textContent = t.langLabel;
+        }
+
+        function toggleLang() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('sp_lang', currentLang);
+            applyLang();
+        }
+
+        function showAlert(msg, type = 'error') {
+            const el = document.getElementById('form-alert');
+            el.textContent = msg;
+            el.className = `form-alert ${type}`;
+            el.style.display = 'block';
+        }
+
+        function togglePassword(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon  = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        function checkPasswordStrength(val) {
+            const bar = document.getElementById('strength-bar');
+
+            bar.className = 'password-strength-bar';
+            if (!val) return;
+            if (val.length < 6) bar.classList.add('strength-weak');
+            else if (val.length < 10 || !/[A-Z]/.test(val) || !/[0-9]/.test(val)) bar.classList.add('strength-medium');
+            else bar.classList.add('strength-strong');
+        }
+
+        async function handleEmailSignup(event) {
+            event.preventDefault();
+            const t = translations[currentLang];
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm_password').value;
+
+            if (password !== confirm) { showAlert(t.passMatch); return; }
+            if (password.length < 6) { showAlert(t.passShort); return; }
+
+            const btn = document.getElementById('signup-btn');
+            btn.classList.add('btn-loading');
+
+            try {
+                if (!supabaseClient) await initSupabase();
+                if (!supabaseClient) {
+                    showAlert('خطأ في الاتصال بالخادم / Connection error');
+                    btn.classList.remove('btn-loading');
+                    return;
+                }
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email, password,
+                    options: { 
+                        data: { 
+                            full_name: name,
+                            user_type: localStorage.getItem('sp_user_type')
+                        } 
+                    }
+                });
+
+                btn.classList.remove('btn-loading');
+                if (error) {
+                    let msg = error.message;
+                    if (msg.includes('User already registered')) {
+                        msg = currentLang === 'ar' ? 'هذا البريد مسجل بالفعل، يرجى تسجيل الدخول' : 'User already registered, please sign in';
+                    }
+                    showAlert(msg);
+                } else {
+                    // Check if email confirmation is required (Supabase returns identities=[])
+                    const needsConfirm = data.user && (!data.session);
+
+                    if (needsConfirm) {
+                        // Email confirmation required — show clear instructions
+                        document.getElementById('signup-form').style.display = 'none';
+                        document.getElementById('form-alert').style.display = 'none';
+                        const card = document.querySelector('.glass-card');
+                        card.innerHTML = `
+                            <div class="auth-header" style="text-align:center">
+                                <div class="logo" style="font-size:40px; margin-bottom:10px">
+                                    <i class="fas fa-envelope-circle-check" style="color:#28c76f"></i>
+                                </div>
+                                <h1 style="font-size:20px">${currentLang === 'ar' ? 'تحقق من بريدك الإلكتروني' : 'Check Your Email'}</h1>
+                                <p style="color:rgba(255,255,255,.75); font-size:14px; margin-top:10px">
+                                    ${currentLang === 'ar'
+                                ? `أرسلنا رابط التأكيد إلى <strong style="color:#7c6fe0">${email}</strong><br><br>افتح بريدك وانقر على الرابط لتفعيل حسابك.<br>ثم ارجع وسجّل دخولك.`
+                                : `We sent a confirmation link to <strong style="color:#7c6fe0">${email}</strong><br><br>Open your email and click the link to activate your account.<br>Then come back and sign in.`
+                            }
+                                </p>
+                                <a href="login.html" style="display:inline-block; margin-top:20px; padding:10px 22px; background:linear-gradient(135deg,#7c6fe0,#28c76f); color:#fff; border-radius:12px; text-decoration:none; font-weight:700">
+                                    ${currentLang === 'ar' ? 'الانتقال لتسجيل الدخول' : 'Go to Login'}
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        // Email confirmation disabled — logged in directly
+                        // Write user_type AND role immediately to profiles table
+                        const userTypeToSave = localStorage.getItem('sp_user_type');
+                        if (data.session && data.user && userTypeToSave) {
+                            try {
+                                const { data: currentProfile } = await supabaseClient
+                                    .from('profiles')
+                                    .select('role')
+                                    .eq('id', data.user.id)
+                                    .single();
+                                    
+                                const currentRole = currentProfile?.role || 'user';
+                                if (currentRole !== 'admin') {
+                                    const updatePayload = { user_type: userTypeToSave };
+                                    if (userTypeToSave === 'post_study') {
+                                        updatePayload.role = 'post_study';
+                                    }
+                                    await supabaseClient
+                                        .from('profiles')
+                                        .update(updatePayload)
+                                        .eq('id', data.user.id);
+                                }
+                            } catch (e) {
+                                console.warn('Failed to explicitly write to profiles:', e);
+                            }
+                        }
+                        showAlert(t.successMsg, 'success');
+                        setTimeout(() => window.location.href = 'login.html', 2000);
+                    }
+                }
+            } catch (e) {
+                console.error('Signup error:', e);
+                btn.classList.remove('btn-loading');
+                showAlert(e.message || 'حدث خطأ غير متوقع / An unexpected error occurred');
+            }
+        }
+
+        // Init
+        applyLang();
+        document.addEventListener('DOMContentLoaded', async () => {
+            await new Promise(r => setTimeout(r, 200));
+            if (supabaseClient) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) await redirectByRole(supabaseClient, session.user.id, true);
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+    <title>مسار | Masar</title>
+    <meta name="description" content="مساعدك المهني لاكتشاف التخصص الأكاديمي المناسب">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        .project-description {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+            animation: fadeInScale 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .project-description .landing-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            filter: drop-shadow(0 0 15px rgba(124, 111, 224, 0.4));
+        }
+
+        .project-description h1 {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--purple-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            letter-spacing: -1px;
+        }
+
+        .project-description .slogan {
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            color: var(--purple-light);
+            font-weight: 600;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .project-description p {
+            line-height: 1.8;
+            font-size: clamp(0.95rem, 3vw, 1.15rem);
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .greeting-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--purple-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .greeting-sub {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin: 0 auto;
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Animated Background -->
+    <div class="app-bg"></div>
+
+    <!-- ===== TOP NAVBAR ===== -->
+    <nav class="top-nav">
+        <div class="nav-left" id="nav-left-wrap">
+            <button class="btn-hamburger" id="btn-open-sidebar" aria-label="Open sidebar">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <i class="fas fa-times sidebar-toggle-x" style="display:none"></i>
+            </button>
+        </div>
+
+        <div class="nav-brand">
+            <div class="nav-logo brand-logo-premium"><img src="img/logo.png" alt="Masar Logo"></div>
+            <span class="nav-brand-text" id="t-brand">مسار</span>
+        </div>
+
+        <div class="nav-right">
+            <!-- Messages icon (always visible when logged in) -->
+            <button class="btn-dm-icon" id="btn-dm-open" onclick="openStudentDM()" aria-label="الرسائل"
+                style="display:ruby-cell">
+                <i class="fas fa-bell" id="sdm-bell-icon"></i>
+                <span class="dm-menu-badge" id="student-unread-badge" style="display:none">0</span>
+            </button>
+            <div class="user-dropdown-wrapper">
+                <button class="user-avatar-btn" id="btn-user-avatar" aria-label="User menu">
+                    <img id="user-avatar-img"
+                        src="https://ui-avatars.com/api/?name=User&background=7c6fe0&color=fff&size=72" alt="Avatar"
+                        loading="lazy" decoding="async">
+                </button>
+                <div class="user-dropdown" id="user-dropdown">
+                    <div class="user-dropdown-name">
+                        <div id="dd-user-name">...</div>
+                        <div class="user-dropdown-email" id="dd-user-email">...</div>
+                    </div>
+                    <button class="user-dropdown-item danger" onclick="handleLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span id="t-logout">تسجيل الخروج</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button class="btn-new-chat" id="btn-new-chat" onclick="requireAuthOrRedirect(() => startNewChat())">
+                <i class="fas fa-plus"></i>
+                <span id="t-new-chat">محادثة جديدة</span>
+            </button>
+        </div>
+
+        <div class="sidebar-nav">
+            <button class="sidebar-nav-item active" data-tab="home" onclick="handleSidebarNav('home')">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 9.5L12 3L21 9.5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V9.5Z"
+                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M9 21V12H15V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span id="t-sidebar-home">الرئيسية</span>
+            </button>
+            <button class="sidebar-nav-item" data-tab="discover"
+                onclick="requireAuthOrRedirect(() => handleSidebarNav('discover'))">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                    <path d="M14.5 9.5L16 7L13.5 14L8 16L10.5 9.5L8 16L14.5 9.5Z" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span id="t-sidebar-discover">التوصيات</span>
+            </button>
+            <button class="sidebar-nav-item" data-tab="library"
+                onclick="requireAuthOrRedirect(() => handleSidebarNav('library'))">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="7" y="4" width="12" height="13" rx="2" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" />
+                    <path d="M5 8V19C5 20.1046 5.89543 21 7 21H16" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" />
+                </svg>
+                <span id="t-sidebar-library">المكتبة</span>
+            </button>
+        </div>
+
+        <div class="sidebar-body" id="sidebar-body">
+            <!-- Skeletons -->
+            <div id="sidebar-loading">
+                <div class="skeleton"></div>
+                <div class="skeleton" style="width:75%"></div>
+                <div class="skeleton" style="width:85%"></div>
+            </div>
+
+            <!-- Grouped history injected here -->
+            <div id="sidebar-history"></div>
+
+            <!-- Empty state -->
+            <div class="sidebar-empty-state hidden" id="sidebar-empty">
+                <i class="fas fa-comment-slash"></i>
+                <p id="t-no-history">لا توجد محادثات بعد. ابدأ أول محادثة الآن!</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- ──── PAGE CONTAINER FOR SWIPE ──── -->
+        <div class="page-container" id="page-container">
+
+            <!-- ──── HOME TAB ──── -->
+            <div class="tab-panel active" id="tab-home">
+                <section id="project-description" class="project-description" style="display:block;">
+                    <div class="welcome-logo brand-logo-premium" style="width:80px;height:80px;margin:0 auto 20px;">
+                        <img src="img/logo.png" alt="Masar Logo">
+                    </div>
+                    <!-- Guest view -->
+                    <div id="guest-content">
+                        <div class="slogan">مسار.. لغدٍ أكثر ذكاءً.</div>
+                        <p>"مسار" هي منصة تجمع بين قوة الذكاء الاصطناعي وخبرة الإرشاد البشري، حيث صُمم ليكون المساعد
+                            الأول
+                            للطلاب في تحديد مستقبلهم. يتميز "مسار" بتقديم توصيات ذكية مبنية على تحليل دقيق للميول
+                            والقدرات،
+                            مع وجود "مشرف أكاديمي" يمتلك لوحة تحكم خاصة لمتابعة تقارير الطلاب ودعمهم وإرشادهم بناءً على
+                            نتائج النظام. نحن نوفر للطالب الخصوصية في استكشاف شغفه، وللمؤسسة التعليمية الأدوات اللازمة
+                            لتوجيه طلابها نحو النجاح المهني المشرق.
+                        </p>
+                    </div>
+                    <!-- Logged-in greeting (hidden by default, shown after login) -->
+                    <div id="user-greeting" style="display:none;">
+                        <div class="greeting-title" id="greeting-text">أهلاً 👋</div>
+                        <p class="greeting-sub">مسار. مساعدك الأكاديمي الذكي لاكتشاف المسار المهني المناسب لك.</p>
+                    </div>
+                    <button class="glow-btn x-large" id="btn-start-chat" onclick="handleStartChatClick()"
+                        style="margin-top: 30px;">
+                        <span id="t-start-btn">ابدأ المحادثة</span>
+                        <i class="fas fa-comments"></i>
+                    </button>
+                </section>
+
+                <!-- Chat View (hidden initially) -->
+                <div class="chat-view hidden" id="chat-view">
+                    <div class="chat-header-bar" style="display:none">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="chat-header-title" id="chat-title">محادثة جديدة</span>
+                            <button class="btn-edit-chat-name" id="btn-edit-chat-name" title="تعديل اسم المحادثة">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                        </div>
+                        <button class="btn-delete-chat" id="btn-delete-chat" title="حذف المحادثة">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="chat-messages" id="chat-messages"></div>
+                    <div class="chat-input-area">
+                        <div class="chat-input-wrapper">
+                            <!-- Attachment Button & Hidden Inputs -->
+                            <div class="attachment-container">
+                                <button class="btn-attachment" id="btn-attachment" aria-label="Attach file">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <input type="file" id="file-upload-image" accept="image/*" class="hidden">
+                                <input type="file" id="file-upload-camera" accept="image/*" capture="environment"
+                                    class="hidden">
+
+                                <!-- Attachment Menu -->
+                                <div class="attachment-menu" id="attachment-menu">
+                                    <div class="attachment-menu-header">
+                                        <span>إرفاق وسائط</span>
+                                        <div class="header-line"></div>
+                                    </div>
+                                    <div class="attachment-menu-list">
+                                        <button class="attachment-menu-item" id="btn-take-photo">
+                                            <div class="icon-circle camera"><i class="fas fa-camera"></i></div>
+                                            <span>التقاط صورة</span>
+                                        </button>
+                                        <button class="attachment-menu-item" id="btn-upload-image">
+                                            <div class="icon-circle gallery"><i class="fas fa-image"></i></div>
+                                            <span>تحميل من الاستوديو</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <textarea class="chat-textarea" id="chat-textarea" rows="1" id="t-placeholder"
+                                placeholder="اكتب إجابتك هنا..."></textarea>
+                            <button class="btn-send" id="btn-send" aria-label="Send">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ──── DISCOVER TAB ──── -->
+            <div class="tab-panel" id="tab-discover">
+                <div class="tab-discover-header">
+                    <h2 class="tab-section-title" id="t-discover-title">التوصيات ✨</h2>
+                    <p class="tab-section-subtitle" id="t-discover-subtitle">نتائج تحليل مساراتك المهنية</p>
+                </div>
+
+                <!-- Skeleton loaders -->
+                <div id="discover-loading" class="recommendations-list" style="display:none">
+                    <div class="skeleton" style="height:140px;border-radius:20px"></div>
+                    <div class="skeleton" style="height:140px;border-radius:20px"></div>
+                </div>
+
+                <!-- Cards -->
+                <div class="recommendations-list" id="recommendations-list"></div>
+
+                <!-- Empty -->
+                <div class="empty-state hidden" id="discover-empty">
+                    <div class="empty-state-icon"><i class="fas fa-star"></i></div>
+                    <h3 id="t-no-recs">لا توجد توصيات بعد</h3>
+                    <p id="t-no-recs-hint">أكمل محادثة في تبويب الرئيسية وسيظهر التقرير هنا</p>
+                </div>
+            </div>
+
+            <!-- ──── LIBRARY TAB ──── -->
+            <div class="tab-panel" id="tab-library">
+                <div class="tab-library-header">
+                    <h2 class="tab-section-title" id="t-library-title">المكتبة 📚</h2>
+                    <p class="tab-section-subtitle" id="t-library-subtitle">الصور والتقارير المحفوظة</p>
+                </div>
+
+                <!-- Skeleton loaders -->
+                <div id="library-loading" style="display:none;padding:16px">
+                    <div class="library-grid">
+                        <div class="skeleton" style="aspect-ratio:1;border-radius:14px"></div>
+                        <div class="skeleton" style="aspect-ratio:1;border-radius:14px"></div>
+                        <div class="skeleton" style="aspect-ratio:1;border-radius:14px"></div>
+                        <div class="skeleton" style="aspect-ratio:1;border-radius:14px"></div>
+                    </div>
+                </div>
+
+                <div class="library-grid" id="library-grid"></div>
+
+                <!-- Empty -->
+                <div class="empty-state hidden" id="library-empty">
+                    <div class="empty-state-icon"><i class="fas fa-images"></i></div>
+                    <h3 id="t-no-images">المكتبة فارغة</h3>
+                    <p id="t-no-images-hint">الصور التي تُولّدها أو ترفعها ستظهر هنا</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Page indicators (Temporary visibility during navigation) -->
+        <div class="dots-container" id="dots-container">
+            <div class="dot active" data-tab="home"></div>
+            <div class="dot" data-tab="discover"></div>
+            <div class="dot" data-tab="library"></div>
+        </div>
+
+    </main>
+
+    <!-- ===== BOTTOM NAV ===== -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <button class="bottom-nav-btn active" id="btn-tab-home" data-tab="home" onclick="switchTab('home', this)">
+            <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 9.5L12 3L21 9.5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V9.5Z"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M9 21V12H15V21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+            <span id="t-tab-home">الرئيسية</span>
+        </button>
+        <button class="bottom-nav-btn" id="btn-tab-discover" data-tab="discover"
+            onclick="requireAuthOrRedirect(() => switchTab('discover', this))">
+            <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+                <path d="M14.5 9.5L16 7L13.5 14L8 16L10.5 9.5L8 16L14.5 9.5Z" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span id="t-tab-discover">التوصيات</span>
+        </button>
+        <button class="bottom-nav-btn" id="btn-tab-library" data-tab="library"
+            onclick="requireAuthOrRedirect(() => switchTab('library', this))">
+            <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7" y="4" width="12" height="13" rx="2" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" />
+                <path d="M5 8V19C5 20.1046 5.89543 21 7 21H16" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" />
+            </svg>
+            <span id="t-tab-library">المكتبة</span>
+        </button>
+        <!-- Copyright shown only for guests -->
+        <span id="guest-copyright"
+            style="display:none; font-size:11px; color:rgba(255,255,255,0.45); align-items:center; white-space:nowrap;">
+            مسار. جميع الحقوق محفوظة. 2026 ©</span>
+    </nav>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- ===== IMAGE PREVIEW MODAL ===== -->
+    <div class="image-modal hidden" id="image-modal">
+        <button class="image-modal-close" onclick="closeImageModal()"><i class="fas fa-times"></i></button>
+        <img id="image-modal-img" src="" alt="Preview">
+    </div>
+
+    <!-- ===== REPORT MODAL (Bottom Sheet) ===== -->
+    <div class="modal-backdrop hidden" id="report-modal">
+        <div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="modal-badge-wrapper"
+                        style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, var(--pink), var(--purple)); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(232, 62, 140, 0.2); padding: 0; border: none;">
+                        <i class="fas fa-graduation-cap" style="font-size: 24px; color: #fff;"></i>
+                    </div>
+                    <div>
+                        <div class="modal-title" id="report-student-name"
+                            style="font-size: 1.4rem; margin-bottom: 2px;">الاسم</div>
+                        <div class="modal-subtitle" id="report-student-email"
+                            style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">—</div>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeReportModal()" style="align-self: flex-start;"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Primary Major -->
+                <div class="modal-info-card">
+                    <div class="modal-info-label" id="t-primary-label">التوصية الأساسية</div>
+                    <div class="modal-info-content" style="font-size:20px;font-weight:900;margin-bottom:8px"
+                        id="report-primary-major">—</div>
+                    <div class="score-display">
+                        <div class="score-number" id="report-score">0%</div>
+                        <div class="score-bar-track">
+                            <div class="score-bar-fill" id="report-score-fill" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Major -->
+                <div class="modal-info-card">
+                    <div class="modal-info-label" id="t-secondary-label">التوصية البديلة</div>
+                    <div class="modal-info-content" id="report-secondary-major">—</div>
+                </div>
+
+                <!-- Explanation -->
+                <div class="modal-info-card">
+                    <div class="modal-info-label" id="t-explanation-label">لماذا هذا التخصص؟</div>
+                    <div class="modal-info-content" id="report-explanation">—</div>
+                </div>
+
+                <!-- Skills -->
+                <div class="modal-info-card">
+                    <div class="modal-info-label" id="t-skills-label">المهارات المطلوبة</div>
+                    <div class="skill-tags" id="report-skills"></div>
+                </div>
+
+                <!-- Roadmap -->
+                <div class="modal-info-card">
+                    <div class="modal-info-label" id="t-roadmap-label">خارطة الطريق المهنية</div>
+                    <div class="roadmap-steps" id="report-roadmap"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-print" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    <span id="t-print-btn">طباعة التقرير</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== USER TYPE SELECTION MODAL ===== -->
+    <div id="user-type-modal" class="user-type-modal-backdrop hidden">
+        <div class="user-type-modal glass-card">
+            <button class="user-type-modal-close" id="user-type-modal-close"
+                onclick="hideUserTypeModal()">&times;</button>
+            <div class="user-type-modal-header">
+                <div class="user-type-modal-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h2>اختر نوع حسابك</h2>
+                <p>حدد المرحلة التي تناسبك لنتمكن من مساعدتك بشكل أفضل</p>
+            </div>
+            <div class="user-type-options">
+                <button class="user-type-option" onclick="selectUserType('school_student')">
+                    <div class="user-type-option-icon">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <div class="user-type-option-info">
+                        <h3>طالب مدرسي</h3>
+                        <p>طالب في المرحلة الثانوية أو ما قبلها</p>
+                    </div>
+                    <i class="fas fa-chevron-left user-type-arrow"></i>
+                </button>
+                <button class="user-type-option" onclick="selectUserType('post_study')">
+                    <div class="user-type-option-icon post-study">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="user-type-option-info">
+                        <h3>ما بعد الدراسة</h3>
+                        <p>خريج أو باحث عن تطوير مساره المهني</p>
+                    </div>
+                    <i class="fas fa-chevron-left user-type-arrow"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PREMIUM SCHOOL ID MODAL ===== -->
+    <div id="school-id-modal" class="user-type-modal-backdrop hidden"
+        style="z-index: 99999; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); background: rgba(0,0,0,0.8);">
+        <div class="user-type-modal"
+            style="max-width: 480px; padding: clamp(20px, 5vw, 40px); max-height: 90dvh; overflow-y: auto; overflow-x: hidden; background: linear-gradient(145deg, rgba(30,30, 45, 0.9), rgba(10, 10, 20, 0.95)); border: 1px solid rgba(255,255,255,0.1); border-radius: 32px; box-shadow: 0 25px 50px rgba(0,0,0,0.6); position: relative;">
+
+            <!-- Close Button -->
+            <button onclick="logout()"
+                style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.6); border-radius: 12px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; transition: 0.3s;"
+                onmouseenter="this.style.background='rgba(255,255,255,0.1)'; this.style.color='#fff'"
+                onmouseleave="this.style.background='rgba(255,255,255,0.05)'; this.style.color='rgba(255,255,255,0.6)'">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Abstract background glow -->
+            <div
+                style="position: absolute; top: -100px; right: -100px; width: 250px; height: 250px; background: var(--purple); opacity: 0.15; filter: blur(60px); border-radius: 50%;">
+            </div>
+
+            <div style="position: relative; z-index: 1;">
+                <div class="user-type-modal-header" style="margin-bottom: 30px;">
+                    <div
+                        style="width: 80px; height: 80px; border-radius: 24px; background: rgba(124, 111, 224, 0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid rgba(124, 111, 224, 0.3);">
+                        <i class="fas fa-school" style="font-size: 32px; color: var(--cyan);"></i>
+                    </div>
+                    <h2
+                        style="font-size: 2rem; color: #fff; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px;">
+                        انضم إلى مدرستك</h2>
+                    <p style="color: rgba(255,255,255,0.6); font-size: 1.05rem; line-height: 1.6;">بصفتك طالباً، تحتاج
+                        إلى إدخال رمز "معرف المدرسة" لربط حسابك بمؤسستك التعليمية ومتابعة رحلتك الأكاديمية.</p>
+                </div>
+
+                <div style="margin-bottom: 30px; text-align: right;">
+                    <label
+                        style="display: block; color: var(--text-2); font-size: 0.95rem; margin-bottom: 10px; font-weight: 600; padding-inline-start: 5px;">أدخل
+                        رمز المدرسة <span style="color: var(--pink);">*</span></label>
+                    <div style="position: relative;">
+                        <input type="text" id="school-id-input" placeholder="مثال: SCHOOL2024"
+                            style="width: 100%; padding: 18px 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.35); color: #fff; font-size: 1.1rem; font-weight: 700; font-family: 'Inter', sans-serif; letter-spacing: 1px; outline: none; transition: 0.3s; text-align: center;"
+                            oninput="this.value = this.value.toUpperCase().replace(/[^A-Z0-9-]/g, '')"
+                            onfocus="this.style.borderColor='var(--purple)'; this.style.boxShadow='0 0 20px rgba(124,111,224,0.2)'"
+                            onblur="this.style.borderColor='rgba(255,255,255,0.1)'; this.style.boxShadow='none'">
+                        <i class="fas fa-key"
+                            style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.3);"></i>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.4;">
+                        يرجى طلب الرمز من مرشدك الطلابي أو مشرف النظام في مدرستك.</p>
+                </div>
+
+                <button onclick="submitSchoolId()" id="btn-submit-school-id" class="glow-btn"
+                    style="width: 100%; padding: 18px; border-radius: 16px; font-size: 1.15rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                    <span>حفظ والانتقال للوحة التحكم</span>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PROCESSING OVERLAY ===== -->
+    <div class="processing-overlay hidden" id="processing-overlay">
+        <div class="dna-spinner"></div>
+        <div class="processing-text" id="t-processing">جاري تحليل بياناتك...</div>
+    </div>
+
+    <!-- ===== STUDENT DM PANEL (Matches Admin Layout) ===== -->
+    <div class="student-dm-drawer" id="student-dm-drawer">
+
+        <!-- ── LEFT COLUMN: Thread List ── -->
+        <div class="sdm-thread-list-col" id="sdm-thread-list-col">
+            <div class="dm-list-header">
+                <button class="dm-header-btn" id="sdm-thread-search-toggle" onclick="toggleStudentThreadSearch()"
+                    title="بحث عن محادثة">
+                    <i class="fas fa-search"></i>
+                </button>
+                <span class="dm-list-title">الرسائل المباشرة</span>
+                <button class="dm-back-btn" onclick="closeStudentDM()">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <!-- Search (hidden until search icon is clicked) -->
+            <div class="dm-search-wrap" id="sdm-thread-search" style="display:none">
+                <i class="fas fa-search"></i>
+                <input type="text" id="sdm-thread-search-input" name="sdm-thread-search-input" class="dm-search-input"
+                    placeholder="بحث عن محادثه..." oninput="filterStudentThreads(this.value)">
+            </div>
+            <div id="sdm-threads-container" class="dm-thread-list">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+
+        <!-- ── RIGHT COLUMN: Chat ── -->
+        <div class="dm-chat-panel" id="sdm-chat-col">
+
+            <!-- No thread selected state -->
+            <div class="dm-chat-empty" id="sdm-no-thread">
+                <i class="fas fa-envelope-open-text"></i>
+                <p>اختر محادثة من القائمة لبدء الدردشة</p>
+            </div>
+
+            <!-- Active Chat View -->
+            <div id="sdm-chat-view" class="dm-chat-content" style="display:none;">
+                <!-- ── Message Selection Bar (long-press) ── -->
+                <div class="dm-select-bar" id="dm-student-select-bar" style="display:none">
+                    <button class="dm-select-action" onclick="dmStudentCancelSelect()">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                    <span class="dm-select-count" id="dm-student-select-count">1 رسالة</span>
+                    <div class="dm-select-actions-right">
+                        <button class="dm-select-action" title="نسخ" onclick="dmCopySelected('student')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="dm-select-action" title="تعديل" onclick="dmEditSelected('student')">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="dm-select-action danger" title="حذف" onclick="dmDeleteSelected('student')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Header (identical look to admin) -->
+                <div class="dm-chat-header" id="sdm-chat-header">
+                    <!-- Mobile back button (only visible on small screens) -->
+                    <button class="dm-back-btn desktop-hide" onclick="sdmBackToList()" style="margin-inline-end: 10px;">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <img class="dm-chat-avatar" id="sdm-avatar"
+                        src="https://ui-avatars.com/api/?name=User&background=7c6fe0&color=fff" alt="">
+                    <div class="dm-chat-header-info">
+                        <div class="dm-chat-name" id="sdm-title">اختر محادثة</div>
+                        <div class="dm-chat-subtitle" id="sdm-subtitle">المشرف</div>
+                    </div>
+                    <div class="dm-header-actions">
+                        <div class="dm-menu-wrapper">
+                            <button class="dm-header-btn" id="dm-student-menu-btn"
+                                onclick="toggleDMMenu('dm-student-menu')">
+                                <i class="fas fa-ellipsis-vertical"></i>
+                            </button>
+                            <div class="dm-dropdown-menu" id="dm-student-menu">
+                                <button onclick="dmSearchOpen('student')">
+                                    <i class="fas fa-search"></i> بحث
+                                </button>
+                                <button onclick="dmMediaOpen('student')">
+                                    <i class="fas fa-photo-film"></i> الوسائط والملفات
+                                </button>
+                                <button class="danger" onclick="dmClearChat('student')">
+                                    <i class="fas fa-broom"></i> مسح المحادثة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Search bar (hidden by default) ── -->
+                <div class="dm-search-bar" id="dm-student-search-bar" style="display:none">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="dm-student-search-input" placeholder="ابحث في الرسائل..."
+                        oninput="dmFilterMessages(this.value,'sdm-messages')">
+                    <button onclick="dmSearchClose('student')"><i class="fas fa-xmark"></i></button>
+                </div>
+
+                <!-- Messages -->
+                <div class="dm-messages" id="sdm-messages"></div>
+
+                <!-- ── Attachment Menu ── -->
+                <div class="dm-attach-menu" id="dm-student-attach-menu" style="display:none">
+                    <label class="dm-attach-item blue" title="صورة">
+                        <input type="file" id="dm-file-img" name="dm-file-img" accept="image/*" style="display:none"
+                            onchange="dmHandleFileUpload(this,'image','student')">
+                        <i class="fas fa-image"></i><span>صورة</span>
+                    </label>
+                    <label class="dm-attach-item purple" title="فيديو">
+                        <input type="file" id="dm-file-video" name="dm-file-video" accept="video/*" style="display:none"
+                            onchange="dmHandleFileUpload(this,'video','student')">
+                        <i class="fas fa-video"></i><span>فيديو</span>
+                    </label>
+                    <label class="dm-attach-item pink" title="كاميرا">
+                        <input type="file" id="dm-file-camera" name="dm-file-camera" accept="image/*"
+                            capture="environment" style="display:none"
+                            onchange="dmHandleFileUpload(this,'image','student')">
+                        <i class="fas fa-camera"></i><span>كاميرا</span>
+                    </label>
+                    <label class="dm-attach-item orange" title="مستند">
+                        <input type="file" id="dm-file-doc" name="dm-file-doc"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" style="display:none"
+                            onchange="dmHandleFileUpload(this,'doc','student')">
+                        <i class="fas fa-file-lines"></i><span>مستند</span>
+                    </label>
+                    <label class="dm-attach-item green" title="صوت">
+                        <input type="file" id="dm-file-audio" name="dm-file-audio" accept="audio/*" style="display:none"
+                            onchange="dmHandleFileUpload(this,'audio','student')">
+                        <i class="fas fa-music"></i><span>صوت</span>
+                    </label>
+                    <button class="dm-attach-item yellow" onclick="dmSendLocation('student')">
+                        <i class="fas fa-location-dot"></i><span>موقع</span>
+                    </button>
+                </div>
+
+                <div class="sdm-input-bar-wrap" id="sdm-input-bar-wrap">
+                    <div class="dm-input-edit-indicator">
+                        <i class="fas fa-pen"></i> جاري تعديل الرسالة...
+                    </div>
+                    <div class="dm-input-bar" id="sdm-input-bar">
+                        <button class="dm-attach-btn" id="dm-student-attach-btn" onclick="toggleDMAttachMenu('student')"
+                            title="إرفاق">
+                            <i class="fas fa-plus"></i>
+                        </button>
+
+                        <button class="dm-cancel-edit-btn" id="sdm-cancel-edit" onclick="dmCancelEdit('student')"
+                            title="إلغاء التعديل">
+                            <i class="fas fa-times"></i>
+                        </button>
+
+                        <textarea class="dm-textarea" id="sdm-input" placeholder="اكتب رسالتك..." rows="1"
+                            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendStudentDM();}"
+                            oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';dmToggleMicSend('student',this.value)"></textarea>
+
+                        <!-- Mic button -->
+                        <button class="dm-mic-btn" id="dm-student-mic-btn" onclick="dmToggleRecording('student')"
+                            title="تسجيل صوتي — اضغط للبدء، اضغط مجدداً للإرسال">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+
+                        <!-- Send button -->
+                        <button class="dm-send-btn" id="dm-student-send-btn" style="display:none"
+                            onclick="sendStudentDM()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div> <!-- End sdm-chat-view -->
+        </div> <!-- End dm-chat-panel -->
+    </div> <!-- End student-dm-drawer -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/db.js?v=sch-id-fix"></script>
+    <script src="js/auth.js?v=sch-id-fix"></script>
+    <script src="js/dm.js?v=sch-id-fix"></script>
+    <script src="js/dm_ui.js?v=sch-id-fix"></script>
+
+    <script src="js/dm_modals.js?v=sch-id-fix"></script>
+    <script src="js/script.js?v=sch-id-fix"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (typeof initSupabase === 'function') await initSupabase();
+            if (supabaseClient) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                const desc = document.getElementById('project-description');
+                const dmBtn = document.getElementById('btn-dm-open');
+                const userDropdown = document.querySelector('.user-dropdown-wrapper');
+                const guestContent = document.getElementById('guest-content');
+                const userGreeting = document.getElementById('user-greeting');
+                const greetingText = document.getElementById('greeting-text');
+                const navLeftWrap = document.getElementById('nav-left-wrap');
+                const btnTabHome = document.getElementById('btn-tab-home');
+                const btnTabDiscover = document.getElementById('btn-tab-discover');
+                const btnTabLibrary = document.getElementById('btn-tab-library');
+                const guestCopyright = document.getElementById('guest-copyright');
+
+                // Always show the landing section
+                if (desc) desc.style.display = 'block';
+
+                if (session) {
+                    // Determine user_type: DB → user_metadata → localStorage (in priority order)
+                    let resolvedUserType = null;
+                    let profileSchoolId = null;
+                    try {
+                        const { data: profile } = await supabaseClient
+                            .from('profiles')
+                            .select('user_type, role, school_id')
+                            .eq('id', session.user.id)
+                            .single();
+
+                        if (profile && profile.school_id) {
+                            profileSchoolId = profile.school_id;
+                        }
+
+                        if (profile && profile.user_type) {
+                            // 1. Use user_type column (most reliable)
+                            resolvedUserType = profile.user_type;
+                            localStorage.setItem('sp_user_type', resolvedUserType);
+                        } else if (profile && profile.role === 'post_study') {
+                            // 2. Fallback: role column was set manually to post_study
+                            resolvedUserType = 'post_study';
+                            localStorage.setItem('sp_user_type', resolvedUserType);
+                        } else {
+                            // 3. Fallback: check user_metadata (set at signup)
+                            const metaType = session.user?.user_metadata?.user_type;
+                            const localType = localStorage.getItem('sp_user_type');
+                            resolvedUserType = metaType || localType || null;
+
+                            // Sync resolved value back to DB so future loads use DB
+                            if (resolvedUserType) {
+                                localStorage.setItem('sp_user_type', resolvedUserType);
+                                try {
+                                    const updatePayload = { user_type: resolvedUserType };
+                                    if (resolvedUserType === 'post_study') {
+                                        updatePayload.role = 'post_study';
+                                    }
+                                    await supabaseClient
+                                        .from('profiles')
+                                        .update(updatePayload)
+                                        .eq('id', session.user.id);
+                                } catch (_) { /* user_type column may not exist yet */ }
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Failed to sync profile types:', e);
+                        resolvedUserType = localStorage.getItem('sp_user_type');
+                    }
+
+                    // Check if school_student and missing school_id
+                    if (resolvedUserType === 'school_student' && !profileSchoolId) {
+                        showSchoolIdModal();
+                    }
+
+                    // Show DM button only for non-post_study users
+                    if (dmBtn && resolvedUserType !== 'post_study') dmBtn.style.display = 'flex';
+                    if (userDropdown) userDropdown.style.display = 'block';
+                    if (navLeftWrap) navLeftWrap.style.display = '';
+                    if (btnTabHome) btnTabHome.style.display = '';
+                    if (btnTabDiscover) btnTabDiscover.style.display = '';
+                    if (btnTabLibrary) btnTabLibrary.style.display = '';
+                    if (guestCopyright) guestCopyright.style.display = 'none';
+                    // Show personalized greeting instead of guest description
+                    if (guestContent) guestContent.style.display = 'none';
+                    if (userGreeting) userGreeting.style.display = 'block';
+                    // Get user's display name
+                    const name = session.user?.user_metadata?.full_name
+                        || session.user?.user_metadata?.name
+                        || session.user?.email?.split('@')[0]
+                        || 'بك';
+                    if (greetingText) greetingText.textContent = `أهلاً ${name} 👋`;
+                } else {
+                    // Guest: hide hamburger, chat bell, all nav tabs, show copyright
+                    if (dmBtn) dmBtn.style.display = 'none';
+                    if (userDropdown) userDropdown.style.display = 'none';
+                    if (navLeftWrap) navLeftWrap.style.display = 'none';
+                    if (btnTabHome) btnTabHome.style.display = 'none';
+                    if (btnTabDiscover) btnTabDiscover.style.display = 'none';
+                    if (btnTabLibrary) btnTabLibrary.style.display = 'none';
+                    if (guestCopyright) guestCopyright.style.display = 'inline-flex';
+                    // Show guest description
+                    if (guestContent) guestContent.style.display = 'block';
+                    if (userGreeting) userGreeting.style.display = 'none';
+                }
+            }
+        });
+
+        async function requireAuthOrRedirect(actionPathOrFunc) {
+            if (typeof initSupabase === 'function') await initSupabase();
+            if (!supabaseClient) {
+                window.location.href = '/auth/login.html';
+                return;
+            }
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = '/auth/login.html';
+            } else {
+                if (typeof actionPathOrFunc === 'function') {
+                    actionPathOrFunc();
+                } else if (typeof actionPathOrFunc === 'string') {
+                    window.location.href = actionPathOrFunc;
+                }
+            }
+        }
+
+        // ─── User Type Selection Modal ───
+        async function handleStartChatClick() {
+            if (typeof initSupabase === 'function') await initSupabase();
+            if (supabaseClient) {
+                supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                    if (session) {
+                        // FAIL-SAFE: If admin somehow reaches this page, force them out
+                        const role = await getUserRole(supabaseClient, session.user.id, true);
+                        if (role === 'admin') {
+                            window.location.replace('/admin.html');
+                            return;
+                        }
+
+                        if (session.user && session.user.user_metadata) {
+                            startNewChat();
+                        } else {
+                            showUserTypeModal();
+                        }
+                    } else {
+                        showUserTypeModal();
+                    }
+                });
+            } else {
+                showUserTypeModal();
+            }
+        }
+
+        function showUserTypeModal() {
+            const modal = document.getElementById('user-type-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                requestAnimationFrame(() => modal.classList.add('active'));
+            }
+        }
+
+        function hideUserTypeModal() {
+            const modal = document.getElementById('user-type-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.classList.add('hidden'), 300);
+            }
+        }
+
+        function showSchoolIdModal() {
+            const modal = document.getElementById('school-id-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                requestAnimationFrame(() => modal.classList.add('active'));
+            }
+        }
+
+        async function submitSchoolId() {
+            const input = document.getElementById('school-id-input');
+            const btn = document.getElementById('btn-submit-school-id');
+            const val = (input.value || '').trim();
+            if (!val) {
+                if (typeof showToast === 'function') showToast('الرجاء إدخال معرف المدرسة', 'error');
+                return;
+            }
+            if (!supabaseClient) return;
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) return;
+
+            btn.disabled = true;
+            btn.innerHTML = '<span>جاري التحقق...</span> <i class="fas fa-spinner fa-spin"></i>';
+
+            try {
+                // ── Step 1: Verify the school ID actually exists in the schools table ──
+                const { data: school, error: schoolErr } = await supabaseClient
+                    .from('schools')
+                    .select('id, name, admin_id')
+                    .eq('id', val)
+                    .single();
+
+                if (schoolErr || !school) {
+                    // School ID not found — reject it
+                    input.style.borderColor = 'var(--pink)';
+                    input.style.boxShadow = '0 0 20px rgba(255,80,120,0.3)';
+                    if (typeof showToast === 'function') {
+                        showToast('معرف المدرسة غير صحيح. تأكد من إدخال المعرف الذي أرسله لك المشرف', 'error');
+                    }
+                    return;
+                }
+
+                // Reset border color if previously shown error
+                input.style.borderColor = 'rgba(255,255,255,0.1)';
+                input.style.boxShadow = 'none';
+                btn.innerHTML = '<span>جاري الحفظ...</span> <i class="fas fa-spinner fa-spin"></i>';
+
+                // ── Step 2: Save valid school_id to profile ──
+                // Use .select() to verify actual rows were updated (RLS can silently block updates)
+                const { data: updatedRows, error: updateErr } = await supabaseClient
+                    .from('profiles')
+                    .update({ school_id: val })
+                    .eq('id', session.user.id)
+                    .select('id, school_id');
+
+                if (updateErr) throw updateErr;
+
+                // If RLS silently blocked the update (0 rows returned), try upsert as fallback
+                if (!updatedRows || updatedRows.length === 0) {
+                    console.warn('UPDATE returned 0 rows — trying upsert fallback');
+                    const { error: upsertErr } = await supabaseClient
+                        .from('profiles')
+                        .upsert({ id: session.user.id, school_id: val }, { onConflict: 'id' });
+                    if (upsertErr) throw new Error('فشل حفظ معرف المدرسة: ' + upsertErr.message);
+                }
+
+                // Verify the update actually persisted
+                const { data: verifyRow } = await supabaseClient
+                    .from('profiles')
+                    .select('school_id')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (!verifyRow || verifyRow.school_id !== val) {
+                    throw new Error('لم يتم حفظ معرف المدرسة. قد تكون هناك مشكلة في الصلاحيات. راجع المشرف.');
+                }
+
+                const modal = document.getElementById('school-id-modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    setTimeout(() => modal.classList.add('hidden'), 300);
+                }
+                if (typeof showToast === 'function') showToast(`تم الانضمام إلى ${school.name} بنجاح 🎉`, 'success');
+            } catch (err) {
+                console.error('Error saving school ID:', err);
+                if (typeof showToast === 'function') showToast('حدث خطأ أثناء الحفظ', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span>حفظ والانتقال للوحة التحكم</span> <i class="fas fa-chevron-left"></i>';
+            }
+        }
+
+        async function selectUserType(type) {
+            localStorage.setItem('sp_user_type', type);
+
+            // Immediately update bell button visibility without waiting for page reload
+            const dmBtn = document.getElementById('btn-dm-open');
+            if (dmBtn) {
+                dmBtn.style.display = (type === 'post_study') ? 'none' : 'flex';
+            }
+
+            // If logged in, sync to database immediately
+            if (supabaseClient) {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) {
+                    try {
+                        // Fetch current profile to ensure we don't accidentally demote an admin
+                        const { data: currentProfile } = await supabaseClient
+                            .from('profiles')
+                            .select('role')
+                            .eq('id', session.user.id)
+                            .single();
+
+                        const updatePayload = { user_type: type };
+                        const currentRole = currentProfile?.role || 'user';
+
+                        if (currentRole !== 'admin') {
+                            if (type === 'post_study') {
+                                updatePayload.role = 'post_study';
+                            } else if (currentRole === 'post_study' || !currentRole) {
+                                updatePayload.role = 'user'; // Only upgrade back to user if they were post_study
+                            }
+                        }
+                        // If they are 'admin', do not touch their role!
+
+                        await supabaseClient
+                            .from('profiles')
+                            .update(updatePayload)
+                            .eq('id', session.user.id);
+
+                        if (currentRole === 'admin') {
+                            localStorage.setItem('sp_user_role', 'admin'); // Ensure cache is correct
+                            window.location.replace('/admin.html');
+                            return; // Stop further execution, send them straight to admin
+                        }
+
+                        console.log('User profile synced to DB explicitly:', updatePayload);
+                    } catch (e) {
+                        console.error('Failed to sync profile types to DB:', e);
+                    }
+                }
+            }
+
+            hideUserTypeModal();
+            requireAuthOrRedirect(() => startNewChat());
+        }
+
+        // Close modal on backdrop click
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('user-type-modal');
+            if (e.target === modal) hideUserTypeModal();
+        });
+    </script>
+    <script>
+        async function refreshStudentBadge() {
+            try {
+                const count = await window.dmService.dmGetUnreadCount();
+                const badge = document.getElementById('student-unread-badge');
+                if (badge) {
+                    if (count > 0) {
+                        badge.textContent = count;
+                        badge.style.display = 'inline-flex';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                }
+            } catch (e) { console.warn('refreshStudentBadge error:', e); }
+        }
+        window.refreshStudentBadge = refreshStudentBadge;
+
+        // Initialize Global Unread Logic for Student (skip for post_study users)
+        if (localStorage.getItem('sp_user_type') !== 'post_study') {
+            initSupabase().then(async () => {
+                refreshStudentBadge();
+                const client = await initSupabase();
+                if (!client) return;
+                const { data: { session } } = await client.auth.getSession();
+                const myId = session?.user?.id;
+
+                if (window.dmService) {
+                    window.dmService.dmSubscribeToAllMessages(async (payload) => {
+                        if (payload.eventType === 'INSERT' && myId) {
+                            if (payload.new.sender_id !== myId) {
+                                refreshStudentBadge();
+                                if (window.dmShowToast) window.dmShowToast('لديك رسالة جديدة');
+                                if (document.getElementById('student-dm-drawer')?.classList.contains('open')) {
+                                    loadStudentThreadList();
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // ─── Student DM logic ────────────────────────────────────────
+        var _sdmThreadId = null;
+        var _sdmMyId = null;
+
+        async function openStudentDM() {
+            const drawer = document.getElementById('student-dm-drawer');
+            if (drawer.classList.contains('open')) {
+                closeStudentDM();
+                return;
+            }
+            drawer.classList.add('open');
+            document.body.classList.add('dm-open');
+            document.getElementById('bottom-nav').style.display = 'none';
+            // Show no-thread state initially (right column), thread list visible on left
+            const noThread = document.getElementById('sdm-no-thread');
+            const chatView = document.getElementById('sdm-chat-view');
+            if (noThread) noThread.style.display = 'flex';
+            if (chatView) chatView.style.display = 'none';
+            // On mobile: show thread list, hide chat column
+            document.getElementById('sdm-thread-list-col')?.classList.remove('mobile-hidden');
+            document.getElementById('sdm-chat-col')?.classList.remove('mobile-open');
+            await loadStudentThreadList();
+            refreshStudentBadge();
+        }
+
+        function closeStudentDM() {
+            document.getElementById('student-dm-drawer').classList.remove('open');
+            document.body.classList.remove('dm-open');
+            document.getElementById('bottom-nav').style.display = '';
+            window.dmService?.dmUnsubscribe();
+            _sdmThreadId = null;
+            window._sdmThreadId = null;
+        }
+
+        function sdmBackToList() {
+            // On desktop: just show no-thread state in right column
+            const noThread = document.getElementById('sdm-no-thread');
+            const chatView = document.getElementById('sdm-chat-view');
+            if (noThread) noThread.style.display = 'flex';
+            if (chatView) chatView.style.display = 'none';
+            // On mobile: show thread list column, hide chat column
+            document.getElementById('sdm-thread-list-col')?.classList.remove('mobile-hidden');
+            document.getElementById('sdm-chat-col')?.classList.remove('mobile-open');
+            window.dmService?.dmUnsubscribe();
+            _sdmThreadId = null;
+            window._sdmThreadId = null;
+            document.body.classList.remove('dm-open');
+        }
+
+        function toggleStudentThreadSearch() {
+            const wrap = document.getElementById('sdm-thread-search');
+            if (!wrap) return;
+            const input = wrap.querySelector('.dm-search-input');
+            const isVisible = wrap.style.display === 'flex';
+            if (isVisible) {
+                wrap.style.display = 'none';
+                if (input) {
+                    input.value = '';
+                    dmFilterThreads('', 'sdm-threads-container');
+                }
+            } else {
+                wrap.style.display = 'flex';
+                if (input) input.focus();
+            }
+        }
+
+        function filterStudentThreads(q) {
+            dmFilterThreads(q, 'sdm-threads-container');
+        }
+
+
+        async function loadStudentThreadList() {
+            const container = document.getElementById('sdm-threads-container');
+            container.innerHTML = '<div style="text-align:center; padding: 20px;"><i class="fas fa-spinner fa-spin"></i> جاري التحميل...</div>';
+
+            try {
+                const threads = await window.dmService.dmStudentGetThreads();
+                if (!threads || threads.length === 0) {
+                    container.innerHTML = `
+                        <div class="dm-list-empty">
+                            <i class="fas fa-comments"></i>
+                            <p>لا توجد محادثات بعد</p>
+                        </div>`;
+                    return;
+                }
+
+                container.innerHTML = threads.map(t => {
+                    const isGroup = t.is_group;
+                    let name = isGroup ? (t.group_name || 'مجموعة') : 'رسائل المشرف';
+                    let subtitle = isGroup ? 'محادثة جماعية' : 'رسائل مباشرة';
+
+                    if (!isGroup && t.admin) {
+                        name = `${t.admin.full_name} (مشرف)`;
+                        subtitle = t.admin.email;
+                    }
+
+                    const icon = isGroup ? 'fa-users' : 'fa-user-tie';
+                    const color = isGroup ? '28c76f' : '7c6fe0';
+
+                    let avatar = '';
+                    if (isGroup) {
+                        avatar = t.group_avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${color}&color=fff&size=64`;
+                    } else if (t.admin) {
+                        avatar = t.admin.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(t.admin.full_name)}&background=${color}&color=fff&size=64`;
+                    } else {
+                        avatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${color}&color=fff&size=64`;
+                    }
+
+                    const active = _sdmThreadId === t.id ? 'active' : '';
+                    const unreadCount = t.unread_count || 0;
+                    const unreadBadge = unreadCount > 0 ? `<div class="dm-thread-unread">${unreadCount}</div>` : '';
+
+                    return `
+                    <div class="dm-thread-item ${active}" data-tid="${t.id}"
+                        onclick="openStudentChat('${t.id}', ${isGroup}, '${window.dmEscapeHTML(name)}', '${window.dmEscapeHTML(subtitle)}', '${avatar}')">
+                        <img class="dm-thread-avatar" src="${avatar}" alt="${window.dmEscapeHTML(name)}">
+                            <div class="dm-thread-info">
+                                <div class="dm-thread-name">${window.dmEscapeHTML(name)}</div>
+                                <div class="dm-thread-email">${window.dmEscapeHTML(subtitle)}</div>
+                            </div>
+                            ${unreadBadge}
+                    </div>`;
+                }).join('');
+                // After rendering, refresh the badge count
+                refreshStudentBadge();
+            } catch (e) {
+                console.error('loadStudentThreadList error:', e);
+                container.innerHTML = `<div style="color:var(--pink); text-align:center;">
+                    حدث خطأ أثناء تحميل المحادثات<br>
+                    <small style="font-size:10px; opacity:0.7;">${e.message || e}</small>
+                </div>`;
+            }
+        }
+
+        async function openStudentChat(threadId, isGroup, name, subtitle, avatarUrl) {
+            // Update active thread in list
+            document.querySelectorAll('#sdm-threads-container .dm-thread-item').forEach(el =>
+                el.classList.toggle('active', el.dataset.tid === threadId));
+
+            // On desktop: both columns stay visible, just show the chat view in right column
+            // On mobile: hide thread list, show chat column full screen
+            document.getElementById('sdm-thread-list-col')?.classList.add('mobile-hidden');
+            document.getElementById('sdm-chat-col')?.classList.add('mobile-open');
+
+            const noThread = document.getElementById('sdm-no-thread');
+            const chatView = document.getElementById('sdm-chat-view');
+            const inputBar = document.getElementById('sdm-input-bar');
+            if (noThread) noThread.style.display = 'none';
+            if (chatView) { chatView.style.display = 'flex'; }
+            if (inputBar) {
+                inputBar.style.display = 'flex';
+                inputBar.style.visibility = 'visible';
+                inputBar.style.opacity = '1';
+            }
+
+            document.getElementById('sdm-title').textContent = name;
+            document.getElementById('sdm-subtitle').textContent = subtitle;
+            const avatarEl = document.getElementById('sdm-avatar');
+            if (avatarEl && avatarUrl) avatarEl.src = avatarUrl;
+
+            await loadStudentDMMessages(threadId);
+        }
+
+        async function loadStudentDMMessages(threadId) {
+            if (!window.dmService) { console.warn('dm.js not ready'); return; }
+            try {
+                const noThread = document.getElementById('sdm-no-thread');
+                const msgs = document.getElementById('sdm-messages');
+                const bar = document.getElementById('sdm-input-bar');
+                const header = document.getElementById('sdm-chat-header');
+
+                // If already open
+                if (_sdmThreadId === threadId) {
+                    msgs.scrollTop = msgs.scrollHeight;
+                    return;
+                }
+
+                // Clear selection state from previous thread
+                if (window.dmStudentCancelSelect) window.dmStudentCancelSelect();
+
+                _sdmThreadId = threadId;
+                window._sdmThreadId = threadId;
+
+                // Initialize Calling Service
+                if (window.dmCallManager) window.dmCallManager.init(threadId);
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                _sdmMyId = user?.id;
+
+                if (msgs) msgs.style.display = 'flex';
+                if (bar) {
+                    bar.style.display = 'flex';
+                    bar.style.visibility = 'visible';
+                    bar.style.opacity = '1';
+                }
+                if (header) header.style.display = 'flex';
+
+                // Load messages
+                const messages = await window.dmService.dmGetMessages(threadId);
+                if (msgs) {
+                    msgs.innerHTML = '';
+                    messages.forEach(m => _sdmAppendMsg(m));
+                    msgs.scrollTop = msgs.scrollHeight;
+                }
+
+                // Mark read
+                try {
+                    console.log('Student marking thread as read:', threadId);
+                    const markedCount = await window.dmService.dmMarkRead(threadId);
+                    console.log('Marked read count:', markedCount);
+
+                    // Clear badge in the list immediately (visual only)
+                    const threadItem = document.querySelector(`#sdm-threads-container .dm-thread-item[data-tid="${threadId}"]`);
+                    if (threadItem) {
+                        const b = threadItem.querySelector('.dm-thread-unread');
+                        if (b) b.remove();
+                    }
+
+                    // Force refresh global badge count
+                    setTimeout(() => {
+                        console.log('Refreshing student badge after markRead timeout');
+                        refreshStudentBadge();
+                    }, 1000);
+                } catch (e) { console.error('Error marking read:', e); }
+
+                // Realtime 
+                window.dmService.dmSubscribeToThread(threadId, async (payload) => {
+                    if (payload.eventType === 'INSERT') {
+                        if (payload.new.sender_id !== _sdmMyId) {
+                            payload.new.sender = await window.dmService.dmGetProfile(payload.new.sender_id);
+                        }
+                        _sdmAppendMsg(payload.new);
+                        if (payload.new.sender_id !== _sdmMyId) {
+                            await window.dmService.dmMarkRead(threadId);
+                            refreshStudentBadge();
+                            // Clear badge in list if it was added by global subscriber
+                            const item = document.querySelector(`#sdm-threads-container .dm-thread-item[data-tid="${threadId}"]`);
+                            if (item) {
+                                const b = item.querySelector('.dm-thread-unread');
+                                if (b) b.remove();
+                            }
+                        }
+                    } else if (payload.eventType === 'UPDATE') {
+                        const el = document.querySelector(`.dm-bubble[data-id="${payload.new.id}"]`);
+                        if (el) {
+                            const textEl = el.querySelector('.dm-bubble-text');
+                            const content = payload.new.content;
+                            const htmlContent = window.dmDetectLinks ? window.dmDetectLinks(content) : (window.dmEscapeHTML ? window.dmEscapeHTML(content) : content);
+
+                            if (textEl) {
+                                textEl.innerHTML = htmlContent;
+                            } else {
+                                // If it's a media message that was edited to text or vice versa (rare but possible)
+                                // For now, just refresh if it's too complex, but let's try to update text
+                                const bubbleText = el.querySelector('.dm-bubble-text');
+                                if (bubbleText) bubbleText.innerHTML = htmlContent;
+                            }
+
+                            if (payload.new.is_edited && !el.querySelector('.dm-bubble-edited')) {
+                                const info = el.querySelector('.dm-bubble-info');
+                                if (info) info.insertAdjacentHTML('afterbegin', '<span class="dm-bubble-edited">معدلة</span>');
+                            }
+
+                            // Check if just soft-deleted for me
+                            if (payload.new.deleted_by_ids && payload.new.deleted_by_ids.includes(_sdmMyId)) {
+                                el.remove();
+                            }
+                        }
+                    } else if (payload.eventType === 'DELETE') {
+                        document.querySelector(`.dm-bubble[data-id="${payload.old.id}"]`)?.remove();
+                    }
+                });
+            } catch (e) {
+                console.error('loadStudentDMMessages:', e);
+                const errMsg = e.message || JSON.stringify(e);
+                const msgs = document.getElementById('sdm-messages');
+                const bar = document.getElementById('sdm-input-bar');
+                if (msgs) {
+                    msgs.style.display = 'flex';
+                    msgs.innerHTML = `
+                        <div style="padding:20px;text-align:center;color:var(--pink);font-size:13px">
+                            <i class="fas fa-triangle-exclamation" style="font-size:24px;margin-bottom:8px;display:block"></i>
+                            خطأ في تحميل الرسائل: <br>
+                            <small style="opacity:0.7;font-size:11px">${errMsg}</small>
+                        </div>`;
+                }
+                if (bar) {
+                    bar.style.display = 'flex';
+                    bar.style.visibility = 'visible';
+                    bar.style.opacity = '1';
+                }
+            }
+        }
+
+        function _sdmAppendMsg(msg) {
+            const container = document.getElementById('sdm-messages');
+            if (!container) return;
+            if (container.querySelector(`.dm-bubble[data-id="${msg.id}"]`)) return;
+            const isMine = msg.sender_id === _sdmMyId;
+            const time = new Date(msg.created_at).toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
+
+            if (msg.deleted_by_ids && msg.deleted_by_ids.includes(_sdmMyId)) return;
+
+            const el = document.createElement('div');
+            el.className = `dm-bubble ${isMine ? 'mine' : 'theirs'} `;
+            el.dataset.id = msg.id;
+
+            const content = msg.content || '';
+            let contentHtml = '';
+            // Media detection
+            if (content && (content.startsWith('http') || content.startsWith('/'))) {
+                const url = content;
+                const lowUrl = url.toLowerCase().split('?')[0]; // ignore query params
+                if (lowUrl.match(/\.(jpeg|jpg|gif|png|webp)$/)) {
+                    contentHtml = `<img src="${url}" class="dm-bubble-media" onclick="window.dmOpenImageModal('${url}')" style="cursor:pointer">`;
+                } else if (lowUrl.match(/\.(mp4|webm|mov|avi)$/)) {
+                    contentHtml = `<video src="${url}" controls class="dm-bubble-media"></video>`;
+                } else if (lowUrl.match(/\.(mp3|wav|ogg|webm)$/) || lowUrl.includes('voice_')) {
+                    contentHtml = `<audio src="${url}" controls class="dm-bubble-audio"></audio>`;
+                } else if (lowUrl.match(/\.(pdf|doc|docx|xls|xlsx|ppt|pptx|txt)$/)) {
+                    const fileName = url.split('/').pop().split('?')[0];
+                    contentHtml = `<a href="${url}" target="_blank" class="dm-bubble-file" onclick="window.confirmSafeLink('${url}', event)"><i class="fas fa-file-lines"></i><span>${window.dmEscapeHTML ? window.dmEscapeHTML(fileName) : fileName}</span></a>`;
+                } else {
+                    contentHtml = `<div class="dm-bubble-text">${window.dmDetectLinks ? window.dmDetectLinks(content) : (window.dmEscapeHTML ? window.dmEscapeHTML(content) : content)}</div>`;
+                }
+            } else {
+                contentHtml = `<div class="dm-bubble-text">${window.dmDetectLinks ? window.dmDetectLinks(content) : (window.dmEscapeHTML ? window.dmEscapeHTML(content) : content)}</div>`;
+            }
+
+            // Sender name (for groups)
+            let senderHtml = '';
+            if (!isMine && msg.sender) {
+                const sName = msg.sender.full_name || msg.sender.email?.split('@')[0] || 'مستخدم';
+                senderHtml = `<div class="dm-sender-name">${window.dmEscapeHTML ? window.dmEscapeHTML(sName) : sName}</div>`;
+            }
+
+            el.innerHTML = `
+                ${senderHtml}
+                ${contentHtml}
+                    <div class="dm-bubble-info">
+                        ${msg.is_edited ? '<span class="dm-bubble-edited">معدلة</span>' : ''}
+                        <div class="dm-bubble-time">${time}</div>
+                    </div>
+            `;
+
+            if (window.dmBindLongPress) {
+                window.dmBindLongPress(el, msg.id, 'student');
+            }
+
+            container.appendChild(el);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function sendStudentDM() {
+            if (!_sdmThreadId) return;
+            const input = document.getElementById('sdm-input');
+            const text = input?.value?.trim();
+            if (!text) return;
+
+            const editId = input.dataset.editId;
+
+            // Clear input and UI state immediately
+            if (editId && window.dmCancelEdit) {
+                window.dmCancelEdit('student');
+            } else {
+                input.value = '';
+                input.style.height = 'auto';
+                input.focus(); // Keep keyboard open on mobile
+                if (window.dmToggleMicSend) dmToggleMicSend('student', '');
+            }
+
+            try {
+                if (editId) {
+                    await window.dmService.dmEditMessage(editId, text);
+                    if (window.dmShowToast) window.dmShowToast('تم تعديل الرسالة');
+                } else {
+                    const data = await window.dmService.dmSendMessage(_sdmThreadId, text);
+                    if (data) _sdmAppendMsg(data);
+                }
+            } catch (e) {
+                console.error('sendStudentDM:', e);
+                if (window.dmShowToast) window.dmShowToast('حدث خطأ: ' + (e.message || 'فشل الإرسال'));
+            }
+        }
+
+        async function refreshStudentBadge() {
+            const badge = document.getElementById('student-unread-badge');
+            const btn = document.getElementById('btn-dm-open');
+
+            // If auth or DM service are not ready, hide the icon/badge (guest / welcome state)
+            if (!supabaseClient || !window.dmService || !btn || !badge) {
+                if (btn) btn.style.display = 'none';
+                if (badge) badge.style.display = 'none';
+                return;
+            }
+
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+
+                // No logged-in user OR user is post_study → hide bell completely
+                const userType = localStorage.getItem('sp_user_type');
+                if (!session || userType === 'post_study') {
+                    btn.style.display = 'none';
+                    badge.style.display = 'none';
+                    btn.classList.remove('has-unread');
+                    return;
+                }
+
+                const count = await window.dmService.dmGetUnreadCount();
+
+                // Logged-in user → show button and badge state
+                btn.style.display = 'flex';
+
+                if (count > 0) {
+                    badge.textContent = count > 99 ? '99+' : count;
+                    badge.style.display = 'inline-flex';
+                    btn.classList.add('has-unread');
+                } else {
+                    badge.style.display = 'none';
+                    btn.classList.remove('has-unread');
+                }
+            } catch (e) {
+                console.warn('refreshStudentBadge error:', e);
+                // On error, be safe and hide the badge while keeping current bell visibility
+                if (badge) badge.style.display = 'none';
+            }
+        }
+
+        // Poll for unread messages every 30 seconds (when page is visible)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial check after auth completes (slight delay to let auth.js init)
+            setTimeout(async () => {
+                await refreshStudentBadge();
+
+                // ── Real-time Thread List Updates ──
+                const { data: { user } } = await supabaseClient.auth.getUser();
+                if (user && window.dmService) {
+                    // 1. Listen for new groups I am added to
+                    window.dmService.dmSubscribeToParticipants(user.id, () => {
+                        console.log('Student added to new group, reloading thread list...');
+                        loadStudentThreadList();
+                    });
+
+                    // 2. Listen for general thread updates (names, last messages)
+                    window.dmService.dmSubscribeToThreadList(() => {
+                        console.log('Thread list updated, refreshing...');
+                        loadStudentThreadList();
+                    });
+                }
+            }, 2000);
+
+            // Periodic check
+            setInterval(() => {
+                if (!document.hidden) refreshStudentBadge();
+            }, 30000);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | مسار</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        #page-loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #0f172a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            transition: opacity 0.3s ease;
+        }
+        .page-spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page-loader">
+        <div class="page-spinner"></div>
+    </div>
+
+    <div class="auth-container">
+        <div class="glass-card">
+            <!-- Header -->
+            <div class="auth-header">
+                <div class="logo brand-logo-premium">
+                    <img src="../img/logo.png" alt="Masar Logo">
+                </div>
+                <h1 id="t-title">مسار</h1>
+                <p id="t-subtitle">أهلاً بك — اختر طريقة الدخول</p>
+            </div>
+
+            <!-- Alert -->
+            <div class="form-alert" id="form-alert"></div>
+
+            <!-- OAuth Buttons -->
+            <div class="auth-buttons">
+                <button class="btn-social" id="btn-google" onclick="loginWithGoogle()">
+                    <i class="fab fa-google"></i>
+                    <span id="t-google">المتابعة بـ Google</span>
+                </button>
+                <button class="btn-social" id="btn-facebook" onclick="loginWithFacebook()">
+                    <i class="fab fa-facebook"></i>
+                    <span id="t-facebook">المتابعة بـ Facebook</span>
+                </button>
+            </div>
+
+            <!-- Signup Link -->
+            <div class="auth-footer">
+                <span id="t-no-account">ليس لديك حساب؟</span>
+                <a href="signup.html" id="t-signup-link">إنشاء حساب جديد</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/dm_modals.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        const translations = {
+            ar: {
+                title: "مسار", subtitle: "أهلاً بك — اختر طريقة الدخول",
+                google: "المتابعة بـ Google", facebook: "المتابعة بـ Facebook",
+                noAccount: "ليس لديك حساب؟", signupLink: "إنشاء حساب جديد",
+                dir: "rtl", lang: "ar"
+            },
+            en: {
+                title: "Masar", subtitle: "Welcome — choose a login method",
+                google: "Continue with Google", facebook: "Continue with Facebook",
+                noAccount: "Don't have an account?", signupLink: "Create account",
+                dir: "ltr", lang: "en"
+            }
+        };
+
+        let currentLang = localStorage.getItem('sp_lang') || 'ar';
+
+        function applyLang() {
+            const t = translations[currentLang];
+            document.documentElement.setAttribute('dir', t.dir);
+            document.documentElement.setAttribute('lang', t.lang);
+            document.getElementById('t-title').textContent        = t.title;
+            document.getElementById('t-subtitle').textContent     = t.subtitle;
+            document.getElementById('t-google').textContent       = t.google;
+            document.getElementById('t-facebook').textContent     = t.facebook;
+            document.getElementById('t-no-account').textContent   = t.noAccount;
+            document.getElementById('t-signup-link').textContent  = t.signupLink;
+        }
+
+        applyLang();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loader = document.getElementById('page-loader');
+
+            // Safety: force-hide loader after 5s
+            setTimeout(() => {
+                if (loader && loader.style.display !== 'none') {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 300);
+                }
+            }, 5000);
+
+            try {
+                if (!supabaseClient) await initSupabase();
+                if (supabaseClient) {
+                    const { data: { session } } = await supabaseClient.auth.getSession();
+                    if (session) {
+                        await redirectByRole(supabaseClient, session.user.id, true);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.error('Login init error:', e);
+            } finally {
+                if (loader) {
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 300);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+flask
+flask-cors
+python-dotenv
+llama-index
+supabase
+gunicorn

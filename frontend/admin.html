@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
+    <title>لوحة التحكم | مسار</title>
+    <meta name="description" content="لوحة تحكم المشرف — مسارك الذكي">
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="css/style.css?v=2">
+    <link rel="stylesheet" href="css/admin.css?v=2">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body>
+
+    <!-- ===== ANIMATED BACKGROUND ===== -->
+    <div class="app-bg"></div>
+
+    <!-- ===== FULL-PAGE LOADER (shown until role verified) ===== -->
+    <div class="admin-page-loader" id="admin-page-loader">
+        <div class="loader-logo brand-logo-premium"><img src="img/logo.png" alt="Logo"></div>
+        <p class="loader-text">جاري التحقق من الصلاحيات...</p>
+        <div class="loader-skeleton-area">
+            <div class="skeleton" style="height:14px;width:60%;border-radius:8px;margin:0 auto"></div>
+            <div class="skeleton" style="height:12px;width:40%;border-radius:8px;margin:0 auto"></div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN ADMIN LAYOUT ===== -->
+    <div class="admin-layout">
+
+        <!-- ── Sidebar Overlay (mobile) ── -->
+        <div class="admin-sidebar-overlay" id="admin-sidebar-overlay" onclick="closeAdminSidebar()"></div>
+
+        <!-- ══════════════ SIDEBAR ══════════════ -->
+        <aside class="admin-sidebar" id="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <div class="admin-sidebar-logo brand-logo-premium"><img src="img/logo.png" alt="Logo"></div>
+                <div>
+                    <div class="admin-sidebar-title">مسار</div>
+                    <!-- <div class="admin-sidebar-subtitle">Admin Panel</div> -->
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <!-- <div class="admin-nav-label">نظرة عامة</div> -->
+                <button class="admin-nav-item active" id="nav-overview" onclick="scrollToSection('section-stats')">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>نظرة عامة</span>
+                </button>
+
+                <!-- <div class="admin-nav-label">المستخدمين</div> -->
+                <button class="admin-nav-item" id="nav-users" onclick="scrollToSection('section-users')">
+                    <i class="fas fa-users"></i>
+                    <span>المستخدمون</span>
+                </button>
+
+                <!-- <div class="admin-nav-label">التوصيات</div> -->
+                <button class="admin-nav-item" id="nav-recs" onclick="scrollToSection('section-recs')">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>التوصيات</span>
+                </button>
+                <button class="admin-nav-item" id="nav-analytics" onclick="window.location.href='supervisor.html'">
+                    <i class="fas fa-brain"></i>
+                    <span> التحليلات</span>
+                </button>
+                <button class="admin-nav-item" id="nav-dm" onclick="openDMSection()">
+                    <i class="fas fa-envelope"></i>
+                    <span>الرسائل</span>
+                    <span class="admin-sidebar-badge" id="admin-unread-badge" style="display:none">0</span>
+                </button>
+            </nav>
+
+            <!-- Admin Sidebar Footer (Menu controlled) -->
+            <div class="admin-sidebar-footer">
+                <div class="admin-sidebar-menu-wrapper">
+                    <button class="admin-sidebar-menu-btn" id="sidebar-menu-toggle"
+                        onclick="toggleSidebarUserMenu(event)">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <div class="admin-sidebar-dropdown" id="sidebar-user-dropdown">
+                        <div class="admin-sidebar-user-info">
+                            <img id="sidebar-menu-avatar" src="" alt="User Avatar">
+                            <div class="user-details">
+                                <div id="sidebar-menu-name" class="user-name">—</div>
+                                <div id="sidebar-menu-email" class="user-email">—</div>
+                            </div>
+                        </div>
+                        <div class="admin-sidebar-menu-divider"></div>
+                        <button class="admin-menu-item" onclick="handleAdminLogout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>تسجيل الخروج</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ══════════════ MAIN AREA ══════════════ -->
+        <div class="admin-main">
+
+            <!-- ── Top Bar ── -->
+            <div class="admin-topbar">
+                <div style="display:flex;align-items:center;gap:12px">
+                    <!-- Mobile hamburger -->
+                    <button class="btn-admin-hamburger" onclick="toggleAdminSidebar()" aria-label="Toggle sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="admin-topbar-left">
+                        <div class="admin-page-title">
+                            <i class="fas fa-gauge-high"></i>
+                            لوحة التحكم
+                        </div>
+                        <!-- <div class="admin-page-subtitle">Admin Dashboard</div> -->
+                    </div>
+                </div>
+
+                <div class="admin-topbar-right">
+                    <!-- <span class="admin-badge">
+                        <i class="fas fa-shield-halved"></i>
+                        مشرف
+                    </span> -->
+
+                    <!-- User Dropdown -->
+                    <div class="user-dropdown-wrapper">
+                        <button class="user-avatar-btn" id="admin-avatar-btn" aria-label="User menu">
+                            <img id="admin-user-avatar"
+                                src="https://ui-avatars.com/api/?name=Admin&background=7c6fe0&color=fff&size=72"
+                                alt="Avatar">
+                        </button>
+                        <div class="user-dropdown" id="admin-user-dropdown">
+                            <div class="user-dropdown-name">
+                                <div id="admin-user-name">...</div>
+                                <div class="user-dropdown-email" id="admin-user-email">...</div>
+                            </div>
+                            <button class="user-dropdown-item danger" onclick="handleAdminLogout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>تسجيل الخروج</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Content ── -->
+            <main class="admin-content" id="admin-content-area">
+
+                <!-- Error Banner (hidden by default) -->
+                <div class="admin-error-banner" id="admin-error" style="display:none">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <span></span>
+                </div>
+
+                <!-- ══ SECTION: STATS ══ -->
+                <section id="section-stats">
+                    <!-- School Management Banner (Sleek, transparent, glassmorphism) -->
+                    <div id="admin-school-card" style="display: none; margin-bottom: 32px;">
+                        <div class="school-premium-banner">
+                            <div class="school-banner-content">
+                                <div class="school-icon-wrapper">
+                                    <i class="fas fa-school"></i>
+                                </div>
+                                <div class="school-text-details">
+                                    <span class="school-label">المؤسسة التعليمية</span>
+                                    <h3 class="school-name-display" id="my-school-name">—</h3>
+                                </div>
+                            </div>
+
+                            <div class="school-id-section">
+                                <span class="id-label">كود انضمام الطلاب</span>
+                                <div class="school-id-box">
+                                    <code id="my-school-id">—</code>
+                                    <button class="btn-copy-id" onclick="copyMySchoolId()" title="نسخ الكود">
+                                        <i class="fas fa-copy"></i>
+                                        <span id="copy-school-btn-text">نسخ</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="admin-section-header">
+                        <h2 class="admin-section-title">الإحصائيات</h2>
+                    </div>
+                    <!-- Skeleton -->
+                    <div class="skeleton-area stats-grid" id="stats-skeleton">
+                        <div class="skeleton-stat"></div>
+                        <div class="skeleton-stat"></div>
+                        <div class="skeleton-stat"></div>
+                    </div>
+
+                    <!-- Real cards -->
+                    <div class="data-area stats-grid" style="display:none" id="stats-cards">
+                        <!-- Users -->
+                        <div class="stat-card purple">
+                            <div class="stat-icon purple"><i class="fas fa-users"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="stat-users">0</div>
+                                <div class="stat-label">إجمالي المستخدمين</div>
+                            </div>
+                        </div>
+                        <!-- Conversations -->
+                        <div class="stat-card cyan">
+                            <div class="stat-icon cyan"><i class="fas fa-comments"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="stat-convs">0</div>
+                                <div class="stat-label">إجمالي المحادثات</div>
+                            </div>
+                        </div>
+                        <!-- Recommendations -->
+                        <div class="stat-card pink" style="cursor:pointer" onclick="scrollToSection('section-recs')"
+                            title="انقر لعرض التوصيات">
+                            <div class="stat-icon pink"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="stat-recs">0</div>
+                                <div class="stat-label">إجمالي التوصيات</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skeleton -->
+
+                    <!-- ══ SECTION: USERS ══ -->
+                    <section id="section-users" style="margin-top:24px">
+                        <div class="admin-section-header">
+                            <h2 class="admin-section-title">
+                                <i class="fas fa-users" style="color:var(--purple-light); margin-inline-end:8px;"></i>
+                                المستخدمين
+                            </h2>
+                            <span class="admin-section-count" id="users-count">—</span>
+                        </div>
+
+                        <!-- Skeleton -->
+                        <div class="skeleton-area" id="users-skeleton">
+                            <div class="admin-table-wrapper" style="padding:14px 18px">
+                                <div class="skeleton-row"></div>
+                                <div class="skeleton-row"></div>
+                                <div class="skeleton-row"></div>
+                                <div class="skeleton-row"></div>
+                            </div>
+                        </div>
+
+                        <!-- Real table -->
+                        <div class="data-area" style="display:none" id="users-data">
+                            <div class="admin-table-wrapper">
+                                <div class="admin-table-scroll">
+                                    <table class="admin-table" aria-label="جدول المستخدمين">
+                                        <thead>
+                                            <tr>
+                                                <th>البريد الإلكتروني</th>
+                                                <th>الدور</th>
+                                                <th>تاريخ الانضمام</th>
+                                                <th>مراسلة</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="users-tbody">
+                                            <!-- injected by admin.js -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ══ SECTION: RECOMMENDATIONS ══ -->
+                    <section id="section-recs" style="margin-top:24px">
+                        <div class="admin-section-header">
+                            <h2 class="admin-section-title">
+                                <i class="fas fa-graduation-cap" style="color:var(--pink); margin-inline-end:8px;"></i>
+                                التوصيات
+                            </h2>
+                            <span class="admin-section-count" id="recs-count">—</span>
+                        </div>
+
+                        <!-- Skeleton -->
+                        <div class="skeleton-area" id="recs-skeleton">
+                            <div class="admin-table-wrapper" style="padding:14px 18px">
+                                <div class="skeleton-row"></div>
+                                <div class="skeleton-row"></div>
+                                <div class="skeleton-row"></div>
+                            </div>
+                        </div>
+
+                        <!-- Real table -->
+                        <div class="data-area" style="display:none" id="recs-data">
+                            <div class="admin-table-wrapper">
+                                <div class="admin-table-scroll">
+                                    <table class="admin-table" aria-label="جدول التوصيات">
+                                        <thead>
+                                            <tr>
+                                                <th>الطالب</th>
+                                                <th>التخصص المقترح</th>
+                                                <th>نسبة التوافق</th>
+                                                <th>التاريخ</th>
+                                                <th>التفاصيل</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recs-tbody">
+                                            <!-- injected by admin.js -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+            </main>
+        </div>
+        <!-- /.admin-main -->
+
+        <!-- ══ DM PANEL (slides in over main) ══ -->
+        <div class="dm-admin-panel" id="dm-admin-panel">
+            <!-- Left: Student List -->
+            <div class="dm-student-list">
+                <div class="dm-list-header">
+                    <button class="dm-back-btn" onclick="closeDMSection()">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <span class="dm-list-title">الرسائل المباشرة</span>
+                    <button class="dm-header-btn" id="admin-thread-search-toggle" onclick="toggleAdminThreadSearch()"
+                        title="بحث عن محادثة">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Search (hidden until search icon is clicked) -->
+                <div class="dm-search-wrap" id="admin-thread-search" style="display:none">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="admin-thread-search-input" name="admin-thread-search-input"
+                        placeholder="بحث عن اسم الطالب..." oninput="filterDMStudents(this.value)">
+                </div>
+
+                <!-- Thread list -->
+                <div class="dm-thread-list" id="dm-thread-list"></div>
+                <div class="dm-list-empty" id="dm-list-empty" style="display:none">
+                    <i class="fas fa-comments"></i>
+                    <p>لا توجد محادثات بعد</p>
+                </div>
+
+                <!-- Start new conversation / group -->
+                <div class="dm-action-buttons">
+                    <button class="dm-new-btn" onclick="openNewThreadModal()" style="flex:1;">
+                        <i class="fas fa-comment-medical"></i> طالب
+                    </button>
+                    <button class="dm-new-btn"
+                        style="flex:1; background: var(--glass-2); border: 1px solid var(--glass-border); color: #fff;"
+                        onclick="openNewGroupModal()">
+                        <i class="fas fa-user-group"></i> مجموعة
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Chat Panel -->
+            <div class="dm-chat-panel" id="dm-chat-panel">
+                <!-- Empty state -->
+                <div class="dm-chat-empty" id="dm-chat-empty">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <p>اختر طالبًا لبدء المحادثة</p>
+                </div>
+
+                <!-- Active chat -->
+                <div class="dm-chat-content" id="dm-chat-content" style="display:none">
+                    <!-- ── Message Selection Bar (long-press) ── -->
+                    <div class="dm-select-bar" id="dm-admin-select-bar" style="display:none">
+                        <button class="dm-select-action" onclick="dmAdminCancelSelect()">
+                            <i class="fas fa-xmark"></i>
+                        </button>
+                        <span class="dm-select-count" id="dm-admin-select-count">1 رسالة</span>
+                        <div class="dm-select-actions-right">
+                            <button class="dm-select-action" title="نسخ" onclick="dmCopySelected('admin')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                            <button class="dm-select-action" title="تعديل" onclick="dmEditSelected('admin')">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button class="dm-select-action danger" title="حذف" onclick="dmDeleteSelected('admin')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── Chat Header ── -->
+                    <div class="dm-chat-header" id="dm-chat-header">
+                        <button class="dm-back-btn desktop-hide" onclick="closeAdminChat()"
+                            style="margin-inline-end: 10px;">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <img class="dm-chat-avatar" id="dm-chat-avatar"
+                            src="https://ui-avatars.com/api/?name=User&background=7c6fe0&color=fff" alt="">
+                        <div class="dm-chat-header-info" id="dm-chat-header-info" onclick="handleHeaderInfoClick()">
+                            <div class="dm-chat-name" id="dm-chat-name">—</div>
+                            <div class="dm-chat-subtitle" id="dm-chat-subtitle">—</div>
+                        </div>
+                        <div class="dm-header-actions">
+                            <!-- Three-dot menu -->
+                            <div class="dm-menu-wrapper">
+                                <button class="dm-header-btn" id="dm-admin-menu-btn"
+                                    onclick="toggleDMMenu('dm-admin-menu')">
+                                    <i class="fas fa-ellipsis-vertical"></i>
+                                </button>
+                                <div class="dm-dropdown-menu" id="dm-admin-menu">
+                                    <button onclick="dmSearchOpen('admin')">
+                                        <i class="fas fa-search"></i> بحث
+                                    </button>
+                                    <button onclick="dmMediaOpen('admin')">
+                                        <i class="fas fa-photo-film"></i> الوسائط والملفات
+                                    </button>
+                                    <button class="danger" onclick="dmClearChat('admin')">
+                                        <i class="fas fa-broom"></i> مسح المحادثة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── Search bar (hidden by default) ── -->
+                    <div class="dm-search-bar" id="dm-admin-search-bar" style="display:none">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="dm-admin-search-input" placeholder="ابحث في الرسائل..."
+                            oninput="dmFilterMessages(this.value,'dm-admin-messages')">
+                        <button onclick="dmSearchClose('admin')"><i class="fas fa-xmark"></i></button>
+                    </div>
+
+                    <div class="dm-messages" id="dm-admin-messages"></div>
+
+                    <!-- ── Attachment Menu ── -->
+                    <div class="dm-attach-menu" id="dm-admin-attach-menu" style="display:none">
+                        <label class="dm-attach-item purple" title="صورة">
+                            <input type="file" accept="image/*" style="display:none"
+                                onchange="dmHandleFileUpload(this,'image','admin')">
+                            <i class="fas fa-image"></i><span>صورة</span>
+                        </label>
+                        <label class="dm-attach-item cyan" title="فيديو">
+                            <input type="file" accept="video/*" style="display:none"
+                                onchange="dmHandleFileUpload(this,'video','admin')">
+                            <i class="fas fa-video"></i><span>فيديو</span>
+                        </label>
+                        <label class="dm-attach-item pink" title="كاميرا">
+                            <input type="file" accept="image/*" capture="environment" style="display:none"
+                                onchange="dmHandleFileUpload(this,'image','admin')">
+                            <i class="fas fa-camera"></i><span>كاميرا</span>
+                        </label>
+                        <label class="dm-attach-item orange" title="مستند">
+                            <input type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" style="display:none"
+                                onchange="dmHandleFileUpload(this,'doc','admin')">
+                            <i class="fas fa-file-lines"></i><span>مستند</span>
+                        </label>
+                        <label class="dm-attach-item green" title="صوت">
+                            <input type="file" accept="audio/*" style="display:none"
+                                onchange="dmHandleFileUpload(this,'audio','admin')">
+                            <i class="fas fa-music"></i><span>صوت</span>
+                        </label>
+                        <button class="dm-attach-item yellow" onclick="dmSendLocation('admin')">
+                            <i class="fas fa-location-dot"></i><span>موقع</span>
+                        </button>
+                        <button class="dm-attach-item teal" onclick="dmSendContact('admin')">
+                            <i class="fas fa-address-card"></i><span>جهة اتصال</span>
+                        </button>
+                    </div>
+
+                    <div class="dm-admin-input-bar-wrap" id="dm-admin-input-bar-wrap">
+                        <div class="dm-input-edit-indicator">
+                            <i class="fas fa-pen"></i> جاري تعديل الرسالة...
+                        </div>
+                        <div class="dm-input-bar">
+                            <!-- Attach button -->
+                            <button class="dm-attach-btn" id="dm-admin-attach-btn" onclick="toggleDMAttachMenu('admin')"
+                                title="إرفاق">
+                                <i class="fas fa-plus"></i>
+                            </button>
+
+                            <button class="dm-cancel-edit-btn" id="dm-admin-cancel-edit" onclick="dmCancelEdit('admin')"
+                                title="إلغاء التعديل">
+                                <i class="fas fa-times"></i>
+                            </button>
+
+                            <textarea class="dm-textarea" id="dm-admin-input" placeholder="اكتب رسالتك..." rows="1"
+                                onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAdminDM();}"
+                                oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';dmToggleMicSend('admin',this.value)"></textarea>
+
+                            <!-- Mic button (shown when textarea empty) -->
+                            <button class="dm-mic-btn" id="dm-admin-mic-btn" onclick="dmToggleRecording('admin')"
+                                title="تسجيل صوتي — اضغط للبدء، اضغط مجدداً للإرسال">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+
+                            <!-- Send button (shown when textarea has text) -->
+                            <button class="dm-send-btn" id="dm-admin-send-btn" style="display:none"
+                                onclick="sendAdminDM()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.admin-layout -->
+
+    <!-- ══ Recommendation Detail Modal ══ -->
+    <div class="rec-detail-overlay" id="rec-detail-overlay" onclick="closeRecDetail()" style="display:none">
+        <div class="rec-detail-modal" onclick="event.stopPropagation()">
+            <button class="rec-detail-close" onclick="closeRecDetail()">
+                <i class="fas fa-xmark"></i>
+            </button>
+            <div class="rec-detail-header">
+                <div class="rec-detail-icon"
+                    style="background: linear-gradient(135deg, var(--pink), var(--purple)); display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 16px; margin-inline-end: 15px; box-shadow: 0 8px 16px rgba(232, 62, 140, 0.2);">
+                    <i class="fas fa-graduation-cap" style="font-size: 28px; color: #fff;"></i>
+                </div>
+                <div>
+                    <div class="rec-detail-student" id="rec-detail-student">—</div>
+                    <div class="rec-detail-email" id="rec-detail-email">—</div>
+                </div>
+            </div>
+            <div class="rec-detail-body">
+                <div class="rec-detail-row">
+                    <span class="rec-detail-label">التخصص المقترح</span>
+                    <span class="rec-detail-value" id="rec-detail-major">—</span>
+                </div>
+                <div class="rec-detail-row">
+                    <span class="rec-detail-label">نسبة التوافق</span>
+                    <span class="rec-detail-value" id="rec-detail-score">—</span>
+                </div>
+                <div class="rec-detail-row" style="flex-direction:column;gap:8px">
+                    <span class="rec-detail-label">الشرح</span>
+                    <p class="rec-detail-explanation" id="rec-detail-explanation">—</p>
+                </div>
+                <div class="rec-detail-row" style="flex-direction:column;gap:8px" id="rec-detail-roadmap-wrapper">
+                    <span class="rec-detail-label">خارطة الطريق</span>
+                    <ul class="rec-detail-roadmap" id="rec-detail-roadmap"></ul>
+                </div>
+
+                <!-- حالة الطالب (وسوم ذكية) -->
+                <div class="rec-detail-row" style="flex-direction:column;gap:8px" id="rec-detail-status-wrapper">
+                    <span class="rec-detail-label">حالة الطالب</span>
+                    <div class="rec-detail-status-tags" id="rec-detail-status-tags"></div>
+                </div>
+
+                <!-- ملاحظة المشرف (للمشرف فقط) -->
+                <div class="rec-admin-insight" id="rec-detail-exec-wrapper">
+                    <div class="rec-admin-insight-label">
+                        <i class="fas fa-shield-halved"></i>
+                        ملاحظة المشرف — للاطلاع الداخلي فقط
+                    </div>
+                    <p class="rec-admin-exec-summary" id="rec-detail-exec">—</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ Create Group Modal ══ -->
+    <div class="dm-pick-overlay" id="dm-group-overlay" style="display:none">
+        <div class="dm-pick-modal">
+            <div class="dm-pick-header">
+                إنشاء مجموعة جديدة
+                <button onclick="closeGroupModal()"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div
+                style="padding: 20px; border-bottom: 1px solid var(--glass-border); display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                <div style="position: relative; width: 80px; height: 80px;">
+                    <img id="dm-new-group-avatar-preview"
+                        src="https://ui-avatars.com/api/?name=G&background=28c76f&color=fff&size=80"
+                        style="width:100%; height:100%; border-radius:50%; object-fit:cover; border:2px solid var(--purple);">
+                    <label
+                        style="position: absolute; bottom: 0; right: 0; background: var(--purple); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid var(--bg-1);">
+                        <i class="fas fa-camera" style="font-size: 12px; color: #fff;"></i>
+                        <input type="file" id="dm-new-group-photo-input" name="dm-new-group-photo-input"
+                            accept="image/*" style="display:none" onchange="handleNewGroupPhotoChange(this)">
+                    </label>
+                </div>
+                <input type="text" id="dm-group-name-input" placeholder="اسم المجموعة..."
+                    style="width: 100%; padding: 12px; background: var(--bg-1); border: 1px solid var(--glass-border); border-radius: var(--r-sm); color: var(--text-1); font-family: inherit; text-align: center; font-weight: 700; font-size: 16px;">
+            </div>
+            <div class="dm-pick-list" id="dm-group-student-list" style="max-height: 40vh;">
+                <!-- Filled by JS -->
+            </div>
+            <div
+                style="padding: 15px; border-top: 1px solid var(--glass-border); display: flex; justify-content: flex-end;">
+                <button onclick="submitNewGroup()"
+                    style="background: linear-gradient(135deg, var(--purple), var(--cyan)); color: #fff; border: none; padding: 10px 20px; border-radius: var(--r-sm); cursor: pointer; font-weight: bold; font-family: inherit;">
+                    إنشاء المجموعة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ Group Info Modal (Edit/Members) ══ -->
+    <div class="dm-pick-overlay" id="dm-group-info-overlay" style="display:none">
+        <div class="dm-pick-modal">
+            <div class="dm-pick-header">
+                تفاصيل المجموعة
+                <button onclick="closeGroupInfoModal()"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div style="padding: 24px; border-bottom: 1px solid var(--glass-border); text-align: center;">
+                <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 16px;">
+                    <img id="dm-group-info-avatar" src=""
+                        style="width:100%; height:100%; border-radius:50%; object-fit:cover; border:2px solid var(--purple);">
+                    <label
+                        style="position: absolute; bottom: 0; right: 0; background: var(--purple); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid var(--bg-1);">
+                        <i class="fas fa-camera" style="font-size: 12px; color: #fff;"></i>
+                        <input type="file" id="dm-group-photo-input" name="dm-group-photo-input" accept="image/*"
+                            style="display:none" onchange="handleGroupPhotoChange(this)">
+                    </label>
+                </div>
+                <input type="text" id="dm-group-info-name" name="dm-group-info-name" placeholder="اسم المجموعة..."
+                    style="width: 100%; padding: 12px; background: var(--bg-1); border: 1px solid var(--glass-border); border-radius: var(--r-sm); color: var(--text-1); font-family: inherit; text-align: center; font-weight: 700; font-size: 16px;">
+            </div>
+
+            <div
+                style="padding: 12px 20px; background: rgba(255,255,255,0.03); font-size: 12px; color: var(--text-3); font-weight: 700; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center;">
+                <span>الأعضاء المنضمون</span>
+                <button onclick="openAddMemberToGroupModal()"
+                    style="background: var(--purple); color: #fff; border: none; padding: 4px 10px; border-radius: 6px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-plus"></i> إضافة عضو
+                </button>
+            </div>
+            <div class="dm-pick-list" id="dm-group-members-list" style="max-height: 30vh;">
+                <!-- Filled by JS -->
+            </div>
+
+            <div style="padding: 20px; border-top: 1px solid var(--glass-border); display: flex; gap: 12px;">
+                <button onclick="closeGroupInfoModal()"
+                    style="flex:1; background: var(--glass-2); color: var(--text-2); border: 1px solid var(--glass-border); padding: 10px; border-radius: var(--r-sm); cursor: pointer; font-weight: bold;">
+                    إغلاق
+                </button>
+                <button id="btn-save-group-info" onclick="saveGroupInfo()"
+                    style="flex:2; background: linear-gradient(135deg, var(--purple), var(--cyan)); color: #fff; border: none; padding: 10px; border-radius: var(--r-sm); cursor: pointer; font-weight: bold;">
+                    حفظ التغييرات
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ Add Member to Existing Group Modal ══ -->
+    <div class="dm-pick-overlay" id="dm-add-member-overlay" style="display:none">
+        <div class="dm-pick-modal">
+            <div class="dm-pick-header">
+                إضافة عضو للمجموعة
+                <button onclick="closeAddMemberModal()"><i class="fas fa-xmark"></i></button>
+            </div>
+            <div class="dm-pick-list" id="dm-add-member-list" style="max-height: 50vh;">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ══ SMART MODAL: First Time School ID Creation (Dependent Dropdowns) ══ -->
+    <div id="premium-school-modal"
+        style="display: none; position: fixed; inset: 0; z-index: 100000; background: rgba(0,0,0,0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto;"
+        class="no-scrollbar">
+        <div
+            style="background: linear-gradient(145deg, rgba(22,22,35,0.98), rgba(10,10,18,0.98)); border-radius: 28px; padding: 0; border: 1px solid rgba(124,111,224,0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04); max-width: 560px; width: 100%; text-align: right; position: relative; overflow: hidden; margin: auto;">
+
+            <!-- Close/Logout Button -->
+            <button onclick="handleAdminLogout()"
+                style="position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; width: 36px; height: 36px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: 0.2s;"
+                title="إغلاق وتسجيل الخروج">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Abstract glows -->
+            <div
+                style="position:absolute;top:-80px;right:-80px;width:220px;height:220px;background:var(--purple);opacity:0.15;filter:blur(60px);border-radius:50%;pointer-events:none;">
+            </div>
+            <div
+                style="position:absolute;bottom:-60px;left:-60px;width:180px;height:180px;background:var(--cyan);opacity:0.12;filter:blur(50px);border-radius:50%;pointer-events:none;">
+            </div>
+
+            <!-- Modal Header -->
+            <div
+                style="padding:32px 32px 24px;border-bottom:1px solid rgba(255,255,255,0.06);position:relative;z-index:1;">
+                <div style="display:flex;align-items:center;gap:18px;">
+                    <div
+                        style="width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,var(--purple),var(--cyan));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(124,111,224,0.3);flex-shrink:0;">
+                        <i class="fas fa-school" style="font-size:26px;color:#fff;"></i>
+                    </div>
+                    <div>
+                        <h2 style="color:#fff;font-size:1.5rem;font-weight:800;margin:0 0 4px;letter-spacing:-0.3px;">
+                            إنشاء معرف مدرستك</h2>
+                        <p style="color:rgba(255,255,255,0.55);font-size:0.9rem;margin:0;line-height:1.5;">اختر بيانات
+                            مدرستك وسيتولى النظام توليد المعرف تلقائياً</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <div style="padding:28px 32px;position:relative;z-index:1;">
+
+                <!-- Step Indicators -->
+                <div style="display:flex;gap:6px;margin-bottom:24px;" aria-label="خطوات الإدخال">
+                    <div class="sid-step"
+                        style="flex:1;height:3px;border-radius:2px;background:var(--purple);transition:opacity .3s;">
+                    </div>
+                    <div class="sid-step"
+                        style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);transition:opacity .3s;">
+                    </div>
+                    <div class="sid-step"
+                        style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);transition:opacity .3s;">
+                    </div>
+                    <div class="sid-step"
+                        style="flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,0.1);transition:opacity .3s;">
+                    </div>
+                </div>
+
+                <!-- Row 1: Governorate -->
+                <div class="sid-field-group">
+                    <label class="sid-label">المحافظة <span class="sid-required">*</span></label>
+                    <div class="sid-select-wrapper">
+                        <i class="fas fa-map-marker-alt sid-select-icon"></i>
+                        <select id="sid-governorate" class="sid-select" aria-required="true">
+                            <option value="" disabled selected>اختر المحافظة</option>
+                        </select>
+                        <i class="fas fa-chevron-down sid-chevron"></i>
+                    </div>
+                </div>
+
+                <!-- Row 2: Directorate -->
+                <div class="sid-field-group">
+                    <label class="sid-label">المديرية <span class="sid-required">*</span></label>
+                    <div class="sid-select-wrapper">
+                        <i class="fas fa-map-pin sid-select-icon"></i>
+                        <select id="sid-directorate" class="sid-select" disabled aria-required="true">
+                            <option value="" disabled selected>اختر المحافظة أولاً</option>
+                        </select>
+                        <i class="fas fa-chevron-down sid-chevron"></i>
+                    </div>
+                </div>
+
+                <!-- Row 3: School Type -->
+                <div class="sid-field-group">
+                    <label class="sid-label">نوع المدرسة <span class="sid-required">*</span></label>
+                    <div class="sid-select-wrapper">
+                        <i class="fas fa-building-columns sid-select-icon"></i>
+                        <select id="sid-school-type" class="sid-select" disabled aria-required="true">
+                            <option value="" disabled selected>اختر المديرية أولاً</option>
+                        </select>
+                        <i class="fas fa-chevron-down sid-chevron"></i>
+                    </div>
+                </div>
+
+                <!-- Row 4: School Name -->
+                <div class="sid-field-group">
+                    <label class="sid-label">اسم المدرسة <span class="sid-required">*</span></label>
+                    <div class="sid-select-wrapper">
+                        <i class="fas fa-graduation-cap sid-select-icon"></i>
+                        <select id="sid-school-name" class="sid-select" disabled aria-required="true">
+                            <option value="" disabled selected>اختر نوع المدرسة أولاً</option>
+                        </select>
+                        <i class="fas fa-chevron-down sid-chevron"></i>
+                    </div>
+                </div>
+
+                <!-- Auto-Generated ID Preview -->
+                <div id="sid-id-preview" class="sid-preview" aria-live="polite">
+                    <div class="sid-preview-label">
+                        <i class="fas fa-wand-magic-sparkles" style="color:var(--cyan);"></i>
+                        المعرف المولّد تلقائياً
+                    </div>
+                    <div class="sid-preview-id-row">
+                        <span class="sid-generated-id">—</span>
+                        <button id="sid-copy-btn" class="sid-copy-btn" title="نسخ المعرف" style="display:none;"
+                            type="button">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <p class="sid-preview-hint">هذا هو الرمز الذي ستعطيه للطلاب للانضمام إلى مدرستك</p>
+                </div>
+
+                <!-- Submit Button -->
+                <button id="sid-submit-btn" onclick="createAdminSchoolModal()" class="glow-btn sid-submit" disabled
+                    type="button">
+                    <i class="fas fa-check-circle"></i>
+                    <span>تأكيد وبدء الاستخدام</span>
+                </button>
+
+                <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:rgba(255,255,255,0.3);">يُرجى تعبئة
+                    جميع الحقول المشار إليها بـ <span style="color:var(--pink);">*</span></p>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* ── Smart School ID Modal Styles ────────────────────────────── */
+        .sid-field-group {
+            margin-bottom: 18px;
+        }
+
+        .sid-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            padding-inline-start: 2px;
+        }
+
+        .sid-required {
+            color: var(--pink);
+            margin-inline-start: 3px;
+        }
+
+        .sid-select-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .sid-select-icon {
+            position: absolute;
+            right: 16px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sid-chevron {
+            position: absolute;
+            left: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+
+        .sid-select {
+            width: 100%;
+            padding: 16px 44px 16px 40px;
+            min-height: 48px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: max(16px, 0.95rem);
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            transition: border-color 0.25s, box-shadow 0.25s, opacity 0.25s;
+            direction: rtl;
+        }
+
+        .sid-select:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px rgba(124, 111, 224, 0.2);
+        }
+
+        .sid-select:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .sid-select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        /* Preview Box */
+        .sid-preview {
+            background: rgba(124, 111, 224, 0.07);
+            border: 1px solid rgba(124, 111, 224, 0.2);
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin: 24px 0 20px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+            pointer-events: none;
+        }
+
+        .sid-preview.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .sid-preview-label {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .sid-preview-id-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .sid-generated-id {
+            font-family: 'Courier New', monospace;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--cyan);
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            word-break: break-all;
+        }
+
+        .sid-copy-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+
+        .sid-copy-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+
+        .sid-preview-hint {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin: 10px 0 0;
+            line-height: 1.5;
+        }
+
+        /* Submit Button */
+        .sid-submit {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: opacity 0.25s, transform 0.15s;
+        }
+
+        .sid-submit:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .sid-submit:not(:disabled):hover {
+            transform: translateY(-1px);
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="js/db.js?v=sch-id-fix"></script>
+    <script src="js/auth.js?v=sch-id-fix"></script>
+    <script src="js/dm.js?v=sch-id-fix"></script>
+    <script src="js/dm_ui.js?v=sch-id-fix"></script>
+    <script src="js/dm_modals.js?v=sch-id-fix"></script>
+    <!-- School ID Generator: load data first, then the generator -->
+    <script src="js/schools_data.js?v=sid-1"></script>
+    <script src="js/school_id_generator.js?v=sid-1"></script>
+    <script src="js/admin.js?v=3"></script>
+    <script>
+        // Check if cached HTML loaded
+        window.addEventListener('load', () => {
+            if (!document.getElementById('admin-school-card')) {
+                alert("ملف الـ HTML القديم لا يزال يعمل! يرجى إغلاق المتصفح أو خادم VSCode وتشغيله من جديد لتنظيف المخبأ.");
+            }
+        });
+
+        // Smooth scroll helper used by sidebar nav
+        function scrollToSection(id) {
+            // Close DM panel first if it's open
+            if (typeof closeDMSection === 'function') closeDMSection();
+
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Update active nav item
+            document.querySelectorAll('.admin-nav-item').forEach(b => b.classList.remove('active'));
+            const navMap = {
+                'section-stats': 'nav-overview',
+                'section-users': 'nav-users',
+                'section-convs': 'nav-convs',
+                'section-recs': 'nav-recs',
+                'section-analytics': 'nav-analytics'
+            };
+            const targetNav = document.getElementById(navMap[id]);
+            if (targetNav) targetNav.classList.add('active');
+
+            // Close sidebar on mobile after navigation
+            closeAdminSidebar();
+        }
+
+        // Toggle search bar in DM thread list
+        function toggleAdminThreadSearch() {
+            const wrap = document.getElementById('admin-thread-search');
+            if (!wrap) return;
+            const input = wrap.querySelector('input');
+            const isVisible = wrap.style.display === 'flex';
+            if (isVisible) {
+                wrap.style.display = 'none';
+                if (input) {
+                    input.value = '';
+                    filterDMStudents('');
+                }
+            } else {
+                wrap.style.display = 'flex';
+                if (input) input.focus();
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
