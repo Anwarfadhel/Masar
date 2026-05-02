@@ -92,11 +92,11 @@ CREATE POLICY "Admin can view all conversations" ON public.conversations
     FOR SELECT USING ( public.is_admin() );
 
 -- Messages: Users can manage messages in their conversations
+DROP POLICY IF EXISTS "Users can manage messages" ON public.messages;
 CREATE POLICY "Users can manage messages" ON public.messages 
     FOR ALL USING (
-        EXISTS (
-            SELECT 1 FROM public.conversations 
-            WHERE id = conversation_id AND user_id = auth.uid()
+        conversation_id IN (
+            SELECT id FROM public.conversations WHERE user_id = auth.uid()
         )
     );
 

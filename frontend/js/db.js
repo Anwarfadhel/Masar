@@ -81,7 +81,10 @@ export async function createLocalConversation(userId, title, sessionMeta = {}, t
         created_at: new Date().toISOString()
     };
     const { data, error } = await client.from('conversations').insert(row).select().single();
-    if (error) throw error;
+    if (error) {
+        console.error('❌ createLocalConversation error:', error.message, error);
+        throw error;
+    }
     return data;
 }
 
@@ -160,7 +163,10 @@ export async function saveLocalMessage(conversationId, role, content, type = 'te
         created_at: new Date().toISOString()
     };
     const { data, error } = await client.from('messages').insert(row).select().single();
-    if (error) throw error;
+    if (error) {
+        console.error('❌ saveLocalMessage error:', error.message, error);
+        throw error;
+    }
     return data;
 }
 

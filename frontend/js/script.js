@@ -1975,6 +1975,7 @@ async function generateRecommendation() {
             }
 
             const packedSummary = JSON.stringify({
+                student_stage: stage,          // ✅ حفظ المسار لاسترجاعه عند إعادة الفتح
                 alternative: altStr,
                 skills: skillsList,
                 admin_note: data.admin_note || '',
@@ -2472,17 +2473,21 @@ function openRecDetailModal(rec) {
     let altStr = rec.admin_executive_summary;
     let savedSkills = [];
     let savedStageGuidance = null;
+    let savedStage = rec.student_stage || 'school_student'; // ✅ استرجاع المسار
     try {
         if (altStr && altStr.trim().startsWith('{')) {
             const packed = JSON.parse(altStr);
             altStr = packed.alternative || '';
             savedSkills = packed.skills || [];
             savedStageGuidance = packed.stage_guidance || null;
+            // ✅ استرجاع student_stage من packedSummary المحفوظ
+            if (packed.student_stage) savedStage = packed.student_stage;
         }
     } catch { /* old legacy plain text */ }
 
     // Rebuild a Student_View-compatible object from the saved flat rec
     lastRec = {
+        student_stage: savedStage, // ✅ ضروري ليعرف openReportModal المسار الصحيح
         primary_recommendation: {
             major: rec.primary_major,
             compatibility_bar: rec.compatibility_score,
@@ -2563,31 +2568,52 @@ function openReportModal() {
     let primaryMajor, score, secondaryMajor, explanation, skills, roadmap;
 
     if (stage === 'university_student') {
-        const current = studentView.current_assessment;
-        primaryMajor = current?.major || 'التخصص الحالي';
-        score = current?.status?.includes('جيد') ? 100 : 75;
+        // ✅ قراءة الهيكل الصحيح: primary_recommendation + why_this_major + required_skills + stage_guidance
+        // (الـ RECOMMENDATION_SYSTEM_PROMPT يُولّد primary_recommendation وليس current_assessment)
+        const primary = studentView.primary_recommendation || {};
+        primaryMajor = primary.major || studentView.current_assessment?.major || 'التخصص الحالي';
+        score = primary.compatibility_bar ?? primary.compatibility_score ?? (studentView.current_assessment?.status?.includes('جيد') ? 95 : 75);
         secondaryMajor = 'خطة التطوير والشهادات';
-        explanation = current?.status_explanation || '';
-        
-        skills = [];
-        if (studentView.strengthening_plan) {
+        explanation = studentView.why_this_major || studentView.current_assessment?.status_explanation || '';
+
+        // المهارات: الهيكل الجديد أولاً، ثم fallback للقديم
+        skills = studentView.required_skills || [];
+        if (skills.length === 0 && studentView.strengthening_plan) {
             skills.push(...(studentView.strengthening_plan.focus_subjects || []));
             skills.push(...(studentView.strengthening_plan.missing_skills || []));
         }
-        
+
+        // خارطة الطريق: yearly_plan أولاً (الهيكل الجديد)، ثم fallback للقديم
         roadmap = [];
-        if (studentView.certifications) {
-            studentView.certifications.forEach(c => roadmap.push(`شهادة: ${c.name} (${c.provider})`));
-        }
-        if (studentView.practical_projects) {
-            studentView.practical_projects.forEach(p => roadmap.push(`مشروع: ${p}`));
-        }
-        if (studentView.stage_guidance?.timeline) {
-            if (Array.isArray(studentView.stage_guidance.timeline)) {
-                studentView.stage_guidance.timeline.forEach(t => {
-                    const tasksStr = Array.isArray(t.tasks) ? t.tasks.join('، ') : (t.tasks || '');
-                    roadmap.push(`${t.period || ''}: ${tasksStr}`);
+        if (studentView.stage_guidance?.yearly_plan) {
+            if (Array.isArray(studentView.stage_guidance.yearly_plan)) {
+                studentView.stage_guidance.yearly_plan.forEach(y => {
+                    if (typeof y === 'string') {
+                        roadmap.push(y);
+                    } else if (typeof y === 'object' && y !== null) {
+                        const tasksStr = Array.isArray(y.tasks) ? y.tasks.join('، ') : (y.tasks || '');
+                        roadmap.push(`${y.year || ''}: ${tasksStr}`);
+                    }
                 });
+            } else if (typeof studentView.stage_guidance.yearly_plan === 'string') {
+                roadmap.push(studentView.stage_guidance.yearly_plan);
+            }
+        }
+        // Fallback: الهيكل القديم (certifications, practical_projects, timeline)
+        if (roadmap.length === 0) {
+            if (studentView.certifications) {
+                studentView.certifications.forEach(c => roadmap.push(`شهادة: ${c.name} (${c.provider})`));
+            }
+            if (studentView.practical_projects) {
+                studentView.practical_projects.forEach(p => roadmap.push(`مشروع: ${p}`));
+            }
+            if (studentView.stage_guidance?.timeline) {
+                if (Array.isArray(studentView.stage_guidance.timeline)) {
+                    studentView.stage_guidance.timeline.forEach(t => {
+                        const tasksStr = Array.isArray(t.tasks) ? t.tasks.join('، ') : (t.tasks || '');
+                        roadmap.push(`${t.period || ''}: ${tasksStr}`);
+                    });
+                }
             }
         }
     } else {
